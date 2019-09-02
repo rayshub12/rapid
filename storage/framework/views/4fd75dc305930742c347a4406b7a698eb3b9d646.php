@@ -1,0 +1,1 @@
+<h1>Edit Testimonial <?php echo e($testimonial->id); ?></h1><?php /**PATH /home/b81baw0coev3/public_html/rapidleads.buzzsummo.net/resources/views/admin/testimonials/edit_testimonial.blade.php ENDPATH**/ ?>

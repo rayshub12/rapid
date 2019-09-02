@@ -1,0 +1,1 @@
+<h1>Edit Category <?php echo e($pcat->id); ?></h1><?php /**PATH D:\rapid deals\server code\resources\views/admin/posts/edit_category.blade.php ENDPATH**/ ?>
