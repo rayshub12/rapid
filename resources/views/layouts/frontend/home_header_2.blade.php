@@ -15,13 +15,13 @@
                     <a class="nav-link" href="{{ url('/page/about-us') }}">ABOUT US</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/property-for/1/buy/1') }}">BUY</a>
+                    <a class="nav-link" href="{{ url('/properties/for/sale') }}">BUY</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/property-for/2/rent/1') }}">RENT</a>
+                    <a class="nav-link" href="{{ url('/properties/for/rent') }}">RENT</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/property-for/off-plan/3') }}">OFF PLAN</a>
+                    <a class="nav-link" href="{{ url('/properties/for/off-plan') }}">OFF PLAN</a>
                 </li>
                 <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="{{ url('/contact-us') }}" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -29,12 +29,12 @@
                  </a>
                     <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <a class="nav-link" href="{{ url('/contact-us') }}">CONTACT US</a>
-                        <a class="nav-link" href="{{ url('/page/career') }}">CAREERS</a>
+                        <a class="nav-link" href="{{ url('/page/careers') }}">CAREERS</a>
                     </div>
                 </li>
                 <li class="nav-item">
                     <a class="btn btn-sm" href="{{ url('/list-your-property') }}" style="color:#fff; background: #05b3f8;">List Your Property</a>
-                    <a class="btn btn-sm" href="tel:3055554446" style="color:#fff; background: #000;margin-left: 0.5em;">(305) 555-4446</a>
+                    <a class="btn btn-sm" href="tel:+97142432977" style="color:#fff; background: #000;margin-left: 0.5em;">+971 4 2432977</a>
                 </li>
             </ul>
         </div>

@@ -56,7 +56,7 @@
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <label>Category Image</label>
-                                        <input type="file" name="cat_image" id="cat_image" class="form-control">
+                                        <input type="file" name="cat_image" id="cat_image" class="form-control" accept="image/x-png,image/gif,image/jpeg" />
                                     </div>
                                 </div>
                             </div>

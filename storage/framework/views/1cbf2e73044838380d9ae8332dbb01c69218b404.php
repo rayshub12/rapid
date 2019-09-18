@@ -31,29 +31,26 @@
                         <form action="<?php echo e(url('/search-result')); ?>" method="post">
                             <div class="search_input">
                                 <input type="hidden" value="1" name="property_type">
-                                <?php $i = 0;?>
-                                <?php $__currentLoopData = $location_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$loc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php
+                                <select class="selectpicker form-control" name="location_id" id="number" data-container="body"
+                                    data-live-search="true" title="Type your location to search" data-hide-disabled="true">
+                                <?php $__currentLoopData = \App\Property::select('l_id','city','community','sub_community','tower')->orderBy('l_id', 'asc')->where('community','!=','')->distinct()->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option id="city_search" value="<?php echo e($p->l_id); ?>">
+                                    <?php if(!empty($p->tower)): ?>
+                                        <?php echo e($p->tower); ?>, <?php echo e($p->sub_community); ?>, <?php echo e($p->community); ?>, <?php echo e($p->city); ?>
+
                                     
-                                        if($loc->sub_community != null){
-                                            $a[$loc->id] = $loc->sub_community.','.$loc->community.','.$loc->city;
-                                        }else{
-                                            if($loc->community != null){
-                                                $a[$loc->id] = $loc->community.','.$loc->city;
-                                            }else{
-                                                $a[$loc->id] = $loc->city;
-                                            }
-                                        }
-                                   
-                                    $i++;
-                                ?>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                <?php $a = array_unique($a); 
-                                asort($a);
-                                ?>
-                                <select class="selectpicker form-control" name="location_id" id="number" data-container="body" data-live-search="true" title="Type your location to search" data-hide-disabled="true">
-                                <?php $__currentLoopData = $a; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option id="city_search" value='<?=$key?>'><?=$p?></li>
+                                    <?php else: ?>
+                                        <?php if(!empty($p->sub_community)): ?>
+                                                <?php echo e($p->sub_community); ?>, <?php echo e($p->community); ?>, <?php echo e($p->city); ?>
+
+                                            <?php else: ?>
+                                                <?php if(!empty($p->community)): ?>
+                                                    <?php echo e($p->community); ?>, <?php echo e($p->city); ?>
+
+                                                <?php endif; ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                                 <button type="submit"><i class="icon ion-md-search"></i></button>
@@ -66,29 +63,26 @@
                         <form action="<?php echo e(url('/search-result')); ?>" method="post">
                             <div class="search_input">
                                 <input type="hidden" value="2" name="property_type">
-                                <?php $i = 0;?>
-                                <?php $__currentLoopData = $location_data; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key =>$loc): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                <?php
+                                <select class="selectpicker form-control" name="location_id" id="number" data-container="body"
+                                    data-live-search="true" title="Type your location to search" data-hide-disabled="true">
+                                <?php $__currentLoopData = \App\Property::select('l_id','city','community','sub_community','tower')->orderBy('l_id', 'asc')->where('community','!=','')->distinct()->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option id="city_search" value="<?php echo e($p->l_id); ?>">
+                                    <?php if(!empty($p->tower)): ?>
+                                        <?php echo e($p->tower); ?>, <?php echo e($p->sub_community); ?>, <?php echo e($p->community); ?>, <?php echo e($p->city); ?>
+
                                     
-                                        if($loc->sub_community != null){
-                                            $a[$loc->id] = $loc->sub_community.','.$loc->community.','.$loc->city;
-                                        }else{
-                                            if($loc->community != null){
-                                                $a[$loc->id] = $loc->community.','.$loc->city;
-                                            }else{
-                                                $a[$loc->id] = $loc->city;
-                                            }
-                                        }
-                                   
-                                    $i++;
-                                ?>
-                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                <?php $a = array_unique($a); 
-                                asort($a);
-                                ?>
-                                <select class="selectpicker form-control" name="location_id" id="number" data-container="body" data-live-search="true" title="Type your location to search" data-hide-disabled="true">
-                                <?php $__currentLoopData = $a; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                    <option id="city_search" value='<?=$key?>'><?=$p?></li>
+                                    <?php else: ?>
+                                        <?php if(!empty($p->sub_community)): ?>
+                                                <?php echo e($p->sub_community); ?>, <?php echo e($p->community); ?>, <?php echo e($p->city); ?>
+
+                                            <?php else: ?>
+                                                <?php if(!empty($p->community)): ?>
+                                                    <?php echo e($p->community); ?>, <?php echo e($p->city); ?>
+
+                                                <?php endif; ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </option>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </select>
                                 <button type="submit"><i class="icon ion-md-search"></i></button>
@@ -101,11 +95,28 @@
                             <form action="<?php echo e(url('/search-result')); ?>" method="post">
                                 <div class="search_input">
                                     <input type="hidden" value="3" name="property_type">
-                                    <select class="selectpicker form-control" name="search_text" id="number" data-container="body" data-live-search="true" title="Type your location to search" data-hide-disabled="true">
-                                    <?php $__currentLoopData = \App\City::where('country_id', 231)->orderBy('name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <option id="city_search" value='<?=$p['id']?>'><?=$p['name']?></li>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                    </select>
+                                    <select class="selectpicker form-control" name="location_id" id="number" data-container="body"
+                                    data-live-search="true" title="Type your location to search" data-hide-disabled="true">
+                                <?php $__currentLoopData = \App\Property::select('l_id','city','community','sub_community','tower')->orderBy('l_id', 'asc')->where('community','!=','')->distinct()->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <option id="city_search" value="<?php echo e($p->l_id); ?>">
+                                    <?php if(!empty($p->tower)): ?>
+                                        <?php echo e($p->tower); ?>, <?php echo e($p->sub_community); ?>, <?php echo e($p->community); ?>, <?php echo e($p->city); ?>
+
+                                    
+                                    <?php else: ?>
+                                        <?php if(!empty($p->sub_community)): ?>
+                                                <?php echo e($p->sub_community); ?>, <?php echo e($p->community); ?>, <?php echo e($p->city); ?>
+
+                                            <?php else: ?>
+                                                <?php if(!empty($p->community)): ?>
+                                                    <?php echo e($p->community); ?>, <?php echo e($p->city); ?>
+
+                                                <?php endif; ?>
+                                        <?php endif; ?>
+                                    <?php endif; ?>
+                                </option>
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                </select>
                                     <button type="submit"><i class="icon ion-md-search"></i></button>
                                 </div>
                                 <?php echo e(csrf_field()); ?>
@@ -126,48 +137,28 @@
                 <div class="prop_inn">
                     <div class="protitle_box">
                         <?php if($properties): ?>
-                        <h4>Properties
-                        <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php if($p->property_for == 1): ?> for Sale
-                            <?php elseif($p->property_for == 2): ?> for Rent
-                            <?php endif; ?></h4>
-                        <h2>In UAE</h2>
-                        <?php break; ?>
-                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                        <?php else: ?>
-                        <h4>Properties</h4>
-                        <h2>In UAE</h2>
+                            <h4>Properties
+                            <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                <?php if($p->offering_type == 'sale'): ?> for Sale
+                                <?php elseif($p->offering_type == 'rent'): ?> for Rent
+                                <?php endif; ?></h4>
+                            <?php break; ?>
+                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                            <h2>In UAE</h2>
                         <?php endif; ?>
                     </div>
                     
                     <div class="proplistbox">
                         <ul>
-                            <?php $prop_type = array(); 
-                            $i=0;
-                            ?>
-                            <?php $__currentLoopData = $properties1; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                            <?php 
-                            
-                            $prop_type[$p->type->id] = $p->property_type; 
-                           
-                            ?> 
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>  
-                            <?php $__currentLoopData = $prop_type; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $prop_value): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                             <li> 
-                                 <?php
-                                    
-                                    if($properties1[0]->property_for == 1){
-                                 ?>
-                                <a href="<?php echo e(url( '/category/property/sale/'.$key.'/'.$prop_value.'/1' )); ?>"><?php echo e($prop_value); ?> </a>
-                                <?php
-                                    }elseif($properties1[0]->property_for == 2){
-                                ?>
-                                <a href="<?php echo e(url( '/category/property/rent/'.$key.'/'.$prop_value.'/1' )); ?>"><?php echo e($prop_value); ?></a>
-                                <?php
-                                }
-                                ?>
+                        <?php $__currentLoopData = $type_name; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tn): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?> 
+                            <li>
+                            <?php if($p->project_status == 'off_plan'): ?>
+                            <a href="<?php echo e(url('/properties/for/'.$p->project_status.'/'.$tn->t_name)); ?>"><?php echo e($tn->t_name); ?> (<?php echo e(\App\Property::where('t_name', $tn->t_name)->where('project_status', 'off_plan')->count()); ?>)</a>
+                            <?php else: ?>
+                                <a href="<?php echo e(url('/properties/for/'.$p->offering_type.'/'.$tn->t_name)); ?>"><?php echo e($tn->t_name); ?> (<?php echo e(\App\Property::where('t_name', $tn->t_name)->where('offering_type', $p->offering_type)->count()); ?>)</a>
+                            <?php endif; ?>
                             </li>
-                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </ul>
                     </div>
                 </div>
@@ -185,7 +176,7 @@
                             <!--    <option value="2">Price: Low to High</option>-->
                             <!--    <option value="3">Price: High to Low</option>-->
                             <!--</select>-->
-                            <strong id="pro"><?php echo count($properties); ?> results</strong>
+                            <strong id="pro"><?php echo $property_count; ?> results</strong>
                         </div>
                         <div id="loading">
                             <img src="/images/frontend/images/LoadingCircle_firstani.gif" /> 
@@ -204,27 +195,32 @@
                             <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <div class="proplist">
                                 <div class="proplist_img" style="text-align: center;">
-                                    <?php if(!empty($p->image_name)): ?>
-                                    <img src="<?php echo e(url('/images/frontend/property_images/large/'.$p->image_name)); ?>">
-                                    <?php elseif(!empty($p->images[0]->medium->link)): ?>
-                                    <img height="200" src="<?php echo e($p->images[0]->medium->link); ?>">
+                                    <?php if(!empty($p->images_mlink)): ?>
+                                        <?php $__currentLoopData = explode(',',$p->images_mlink); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $image_m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <?php if($key == 0): ?>
+                                            <img style="max-height:225px;" class="img-responsive" src="<?php echo e($image_m); ?>">
+                                            <?php endif; ?>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    <?php elseif(\App\PropertyImage::where('property_id', $p->id)->count() > 0): ?>
+                                        <?php $__currentLoopData = \App\PropertyImage::where('property_id', $p->id)->take(1)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pim): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                            <img class="img-responsive" src="<?php echo e(url('images/frontend/property_images/large/'.$pim->image_name)); ?>">
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                     <?php else: ?>
-                                    <img src="<?php echo e(url('images/frontend/property_images/large/default.png')); ?>">
+                                        <img src="<?php echo e(url('images/frontend/property_images/large/default.png')); ?>">
                                     <?php endif; ?>
                                 </div>
                                 <div class="proplist_item">
                                     <div class="pro_con">
-                                        <label
-                                            class="badge badge-warning"><?php echo e($p->property_type); ?></label>
-                                        <label class="badge badge-success"><?php if($p->property_for == 1): ?> Buy
-                                            <?php elseif($p->property_for == 2): ?> Rent <?php elseif($p->property_for == 3): ?> Off Plan
+                                        <label class="badge badge-warning"><?php echo e($p->t_name); ?></label> <?php if(!empty($p->project_status)): ?><label class="badge badge-info">Off Plan </label><?php endif; ?>
+                                        <label class="badge badge-success"><?php if($p->offering_type == 'sale'): ?> Buy
+                                            <?php elseif($p->offering_type == 'rent'): ?> Rent <?php elseif($p->offering_type == 'off-plan'): ?> Off Plan
                                             <?php endif; ?></label>
-                                        <h5><?php echo e($p->city_name); ?>, <?php echo e($p->state_name); ?></h5>
-                                        <p><?php echo e($p->name); ?></p>
-                                        <h6><?php if($p->property_for == 2): ?>
-                                            <?php if(!empty($p->property_price)): ?>AED <?php echo e($p->property_price); ?> <span>/Year</span><?php endif; ?>
+                                        <h5><?php echo e($p->community); ?>, <?php echo e($p->city); ?></h5>
+                                        <p><?php echo e($p->pro_title); ?></p>
+                                        <h6><?php if($p->offering_type == 2): ?>
+                                            <?php if(!empty($p->price_value)): ?>AED <?php echo e($p->price_value); ?> <span>/Year</span><?php endif; ?>
                                             <?php else: ?>
-                                            <?php if(!empty($p->property_price)): ?>AED <?php echo e($p->property_price); ?><?php endif; ?>
+                                            <?php if(!empty($p->price_value)): ?>AED <?php echo e($p->price_value); ?><?php endif; ?>
                                             <?php endif; ?></h6>
                                         <ul>
                                             <?php if(!empty($p->bedrooms)): ?><li>
@@ -242,63 +238,22 @@
                                 </div>
                                 <div class="callquiery">
                                     <!--<p>Posted on <?php echo e(date('M d, Y', strtotime($p->created_at))); ?></p>-->
-                                    <a href="<?php echo e(url('/properties/'.$p->id)); ?>" class="readmore_btn">Read More</a>
+                                    <a href="<?php echo e(url('/properties/'.$p->reference)); ?>" class="readmore_btn">Read More</a>
                                 </div>
                             </div>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         </div>
                     </div>
-                    <div class="center" style="text-align: center; width: 100%;">
-                        <div class="pagination" style="display: inline-block;">
-                            <?php if(isset($current_page)): ?>
-                            <?php $prev = $current_page - 1; ?>
-                            <?php $next_page = $current_page + 1; ?>
+                </div>
+                <div class="product_loadding center">
+                    <?php if( !empty($type)): ?>
+                    <?php echo $properties->appends(array("property_type" => $type, "location_id" => $scityID ))->render(); ?>
 
-                            <?php if(($has_next_page == true) && ($has_previous_page == false)): ?>
+                    <?php else: ?>
+                        <?php echo $properties->render(); ?>
 
-                            <li style="float:right;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a
-                                    href="<?php echo e(Route::current()->getName().$next_page); ?>"
-                                    class="btn btn-sm btn-info">Next &raquo;</a></li>
-
-
-
-                            <?php elseif(($has_next_page == false) && ($has_previous_page == true)): ?>
-                            <li style="float:left;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a
-                                    href="<?php echo e(Route::current()->getName().$prev); ?>"
-                                    class="btn btn-sm btn-info">&laquo; Previous</a></li>
-
-                            <?php elseif(($has_next_page == true) && ($has_previous_page == true)): ?>
-                            <li style="float:left;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a
-                                    href="<?php echo e(Route::current()->getName().$prev); ?>"
-                                    class="btn btn-sm btn-info">&laquo;  Previous</a></li>
-
-
-                            <!--<li style="float:left;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a-->
-                            <!--        href="<?php echo e(url('/property-for/'.$type.'/'.$url.'/'.$next_page)); ?>"-->
-                            <!--        class="btn btn-sm btn-info">1</a></li>-->
-
-                            <!--<li style="float:left;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a-->
-                            <!--        href="<?php echo e(url('/property-for/'.$type.'/'.$url.'/'.$next_page)); ?>"-->
-                            <!--        class="btn btn-sm btn-info">2</a></li>-->
-
-                            <!--<li style="float:left;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a-->
-                            <!--        href="<?php echo e(url('/property-for/'.$type.'/'.$url.'/'.$next_page)); ?>"-->
-                            <!--        class="btn btn-sm btn-info">3</a></li>-->
-
-                            <!--<li style="float:left;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a-->
-                            <!--        href="<?php echo e(url('/property-for/'.$type.'/'.$url.'/'.$next_page)); ?>"-->
-                            <!--        class="btn btn-sm btn-info">4</a></li>-->
-
-
-                            <li style="float:right;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a
-                                    href="<?php echo e(Route::current()->getName().$next_page); ?>"
-                                    class="btn btn-sm btn-info">Next &raquo;</a></li>
-
-                            <?php endif; ?>
-                            <?php endif; ?>
-                        </div>
-                    </div>
-                    
+                    <?php endif; ?>
+                    <!-- <img src="/images/frontend_images/images/loadder.svg"> -->
                 </div>
             </div>
         </section>
@@ -315,10 +270,10 @@
                 <div class="col-md-6">
                     <div class="proplistbox nearby_item">
                         <ul>
-                            <li><a href="<?php echo e(url('/property/48003/al-quoz')); ?>">Buy Properties in Al Quoz</a></li>
-                            <li><a href="<?php echo e(url('/property/47987/dubai-city')); ?>">Buy Properties in Dubai City</a></li>
-                            <li><a href="<?php echo e(url('/property/48008/hatta')); ?>">Buy Properties in Hatta</a></li>
-                            <li><a href="<?php echo e(url('/property/48064/arjan')); ?>">Buy Properties in Arjan</a></li>
+                            <li><a href="<?php echo e(url('/property/in/International City')); ?>">Buy Properties in International City</a></li>
+                            <li><a href="<?php echo e(url('/property/in/Greens')); ?>">Buy Properties in Greens</a></li>
+                            <li><a href="<?php echo e(url('/property/in/Dubai Hills Estate')); ?>">Buy Properties in Dubai Hills Estate</a></li>
+                            <li><a href="<?php echo e(url('/property/in/Jumeirah Lake Towers')); ?>">Buy Properties in Jumeirah Lake Towers</a></li>
                         </ul>
                     </div>
                 </div>

@@ -92,7 +92,7 @@
                                     <div class="col-xs-12 col-md-6">
                                         <div class="form-group">
                                             <label>Post Category</label>
-                                            <select name="post_cat" id="post_cat" class="form-control">
+                                            <select name="post_cat" id="post_cat" class="form-control" >
                                                 <!-- <option value="0">Main Category</option> -->
                                                 <?php echo $post_category_dropdown; ?>
                                             </select>
@@ -125,7 +125,7 @@
                                     <div class="col-xs-12 col-md-12">
                                         <div class="form-group">
                                             <label>
-                                                <input name="feature_post" id="feature_post" type="checkbox" class="flat-green" value="1"> Featured  <small class="text-purple pl-1">( If you check this set Featured Post )</small>
+                                                <input name="feature_post" id="feature_post" type="checkbox" class="flat-green" @if($posts->featured == 1) checked @endif value="1"> Featured  <small class="text-purple pl-1">( If you check this set Featured Post )</small>
                                             </label>
                                         </div>
                                     </div>
@@ -133,7 +133,7 @@
                                     <div class="col-xs-12 col-md-12">
                                         <div class="form-group">
                                             <label>
-                                                <input name="status" id="post_status" type="checkbox" class="flat-green" value="1"> Enable  <small class="text-purple pl-1">( If you check this, Post will bwe published)</small>
+                                                <input name="status" id="post_status" type="checkbox" class="flat-green" @if($posts->status == 1) checked @endif value="1"> Enable  <small class="text-purple pl-1">( If you check this, Post will bwe published)</small>
                                             </label>
                                         </div>
                                     </div>
@@ -141,8 +141,9 @@
                                     <div class="col-xs-12 col-md-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="Post Image">Featured Image</label>
-                                            <input type="file" name="featured_image" id="featured_image">
+                                            <input type="file" name="featured_image" id="featured_image" accept="image/x-png,image/gif,image/jpeg" />
                                         </div>
+                                        <p><img width="200" src="{{ url('/images/frontend/post_images/large/'.$posts->post_image) }}" alt=""></p>
                                     </div>
                                     <div class="box-footer">
                                         <button type="submit" class="btn btn-info btn-block">Publish</button>

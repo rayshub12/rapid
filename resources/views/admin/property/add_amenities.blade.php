@@ -19,7 +19,7 @@
                 <div class="box box-success">
                     <!-- form start -->
                     <form role="form" name="add_amenity" id="add_amenity" method="POST"
-                        action="{{ url('/admin/add-amenities') }}">
+                        action="{{ url('/admin/amenities/add') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">

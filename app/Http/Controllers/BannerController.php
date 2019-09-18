@@ -13,9 +13,9 @@ class BannerController extends Controller
     public function addBanner(Request $request)
     {
         if ($request->isMethod('post')) {
-            $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
 
+            
+            $data = $request->all();
             // Upload Category image/icon
             if ($request->hasFile('banner_image')) {
                 $image_tmp = Input::file('banner_image');
@@ -36,7 +36,7 @@ class BannerController extends Controller
                 'link'              => $data['banner_link']
             ]);
 
-            return redirect('/admin/banners')->with('flash_message_success', 'Banner Added Successfully!');
+            return redirect('/admin/banner')->with('flash_message_success', 'Banner Added Successfully!');
         }
         return view('admin.setting.banners.add_banner');
     }
@@ -44,7 +44,7 @@ class BannerController extends Controller
     // Get all banners list
     public function banners()
     {
-        $banners = Banner::get();
+        $banners = Banner::orderBy('created_at','desc')->get();
         return view('admin.setting.banners.banners', compact('banners'));
     }
 
@@ -71,8 +71,8 @@ class BannerController extends Controller
     {
         if ($request->isMethod('post')) {
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
-
+          
+            
             if ($request->hasFile('banner_image')) {
                 $image_tmp = Input::file('banner_image');
                 if ($image_tmp->isValid()) {
@@ -88,7 +88,7 @@ class BannerController extends Controller
             }
 
             Banner::where('id', $id)->update(['image' => $filename, 'title' => $data['title'], 'link' => $data['banner_link'], 'description' => $data['description']]);
-            return redirect('/admin/banners')->with('flash_message_success', 'Banner Updated Successfully!');
+            return redirect('/admin/banner')->with('flash_message_success', 'Banner Updated Successfully!');
         }
 
         $banners = Banner::where('id', $id)->first();

@@ -121,7 +121,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-
+    <link rel="icon" type="image/png" href="{{ asset('images/frontend/images/logo_fav.png') }}">
     <!-- Bootstrap CSS -->
 
     <link rel="stylesheet" href="{{ asset('css/frontend/bootstrap.min.css') }}">
@@ -448,7 +448,7 @@
 
     });
 
-    </script> -->
+    </script>
 
 
 

@@ -31,81 +31,100 @@
         <ul class="sidebar-menu" data-widget="tree">
             <li class="header">HEADER</li>
             <!-- Optionally, you can add icons to the links -->
-            <li class="active">
+            <li class="<?php echo e((request()->is('admin/dashboard')) ? 'active' : ''); ?>">
                 <a href="<?php echo e(url('/admin/dashboard')); ?>"><i class="fa fa-dashboard"></i>
                     <span>Dashboard</span></a>
             </li>
-
-            <li class="treeview">
+            
+            <!-- start of Page sidebar -->
+            <li class="<?php echo e((request()->is('admin/page*'))  ? 'treeview active menu-open' : 'treeview'); ?>">
+                <a href="#"><i class="fa fa fa-sticky-note"></i> <span>Pages</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?php echo e((request()->is('admin/pages')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/pages')); ?>"><i class="fa fa-files-o text-aqua"></i>All Pages</a></li>
+                    <li class="<?php echo e((request()->is('admin/pages/add')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/pages/add')); ?>"><i class="fa fa-plus-circle text-aqua"></i>Add
+                        New</a></li>
+                    <!--<li><a href="<?php echo e(url('/admin/page_categories')); ?>"><i class="fa fa-code-fork text-green"></i>Categories</a></li>-->
+                    <!--<li><a href="<?php echo e(url('/admin/new-page_category')); ?>"><i class="fa fa-plus-square-o text-green"></i>Add-->
+                    <!--    Category</a></li>-->
+                </ul>
+            </li>
+            <!-- end of Page sidebar -->
+            
+            <!-- start of Post sidebar -->
+            <li class="<?php echo e((request()->is('admin/post*'))  ? 'treeview active menu-open' : 'treeview'); ?>">
+                <a href="#"><i class="fa fa-file-text-o text-yellow"></i> <span>Posts</span>
+                    <span class="pull-right-container">
+                        <i class="fa fa-angle-left pull-right"></i>
+                    </span>
+                </a>
+                <ul class="treeview-menu">
+                    <li class="<?php echo e((request()->is('admin/post')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/post')); ?>"><i class="fa fa-files-o text-aqua"></i>All Posts</a></li>
+                    <li class="<?php echo e((request()->is('admin/post/add')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/post/add')); ?>"><i class="fa fa-plus-circle text-aqua"></i>Add
+                        New</a></li>
+                    <li class="<?php echo e((request()->is('admin/post_category')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/post_category')); ?>"><i class="fa fa-code-fork text-green"></i>All Categories</a></li>
+                    <li class="<?php echo e((request()->is('admin/post_category/add')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/post_category/add')); ?>"><i class="fa fa-plus-square-o text-green"></i>Add
+                        Category</a></li>
+                </ul>
+            </li>
+            <!-- end of Page sidebar -->
+            
+            <!-- start of settings sidebar -->
+            <li class="<?php echo e((request()->is('admin/banner*'))  ? 'treeview active menu-open' : 'treeview'); ?>" >
                 <a href="#"><i class="fa fa-cog text-green"></i> <span>Settings</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?php echo e(url('/admin/banners')); ?>"><i class="fa fa-sliders text-aqua"></i>Banner</a></li>
-                    <li><a href="<?php echo e(url('/admin/new-banners')); ?>"><i class="fa fa-plus text-aqua"></i>Add Banner</a></li>
-                </ul>
-            </li>
+			  <ul class="treeview-menu">
+				<li class="<?php echo e((request()->is('admin/banner*'))  ? 'treeview active menu-open' : 'treeview'); ?>" >
+				  <a href="#"><i class="fa fa-image"></i> Banners
+					<span class="pull-right-container">
+					  <i class="fa fa-angle-left pull-right"></i>
+					</span>
+				  </a>
+				  <ul class="treeview-menu" >
+					<li class="<?php echo e((request()->is('admin/banner')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/banner')); ?>"><i class="fa fa-sliders text-aqua"></i>All Banners</a></li>
+                    <li class="<?php echo e((request()->is('admin/banner/add')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/banner/add')); ?>"><i class="fa fa-plus text-aqua"></i>Add Banner</a></li>
+				  </ul>
+				</li>
+			  </ul>
+			</li>
+            <!-- end of settings sidebar -->
             
-            <li class="treeview">
-                <a href="#"><i class="fa fa fa-sticky-note"></i> <span>Page</span>
+            <!-- start of Property type sidebar -->
+            <li class="<?php echo e((request()->is('admin/prop_type*'))  ? 'treeview active menu-open' : 'treeview'); ?>">
+                <a href="#"><i class="fa fa-wpexplorer text-aqua"></i> <span>Property Types</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo e(url('/admin/pages')); ?>"><i class="fa fa-files-o text-aqua"></i>Pages</a></li>
-                    <li><a href="<?php echo e(url('/admin/new-pages')); ?>"><i class="fa fa-plus-circle text-aqua"></i>Add
-                        Page</a></li>
-                    <li><a href="<?php echo e(url('/admin/page_categories')); ?>"><i class="fa fa-code-fork text-green"></i>Categories</a></li>
-                    <li><a href="<?php echo e(url('/admin/new-page_category')); ?>"><i class="fa fa-plus-square-o text-green"></i>Add
-                        Category</a></li>
+                    <li class="<?php echo e((request()->is('admin/prop_type')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/prop_type')); ?>"><i class="fa fa-circle-o text-aqua"></i>All
+                            Property Types</a></li>
+                    <li class="<?php echo e((request()->is('admin/prop_type/add')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/prop_type/add')); ?>"><i class="fa fa-circle-o text-aqua"></i>Add
+                            New</a></li>
                 </ul>
             </li>
+            <!-- end of Property type sidebar -->
             
-            <li class="treeview">
-                <a href="#"><i class="fa fa-file-text-o text-yellow"></i> <span>Post</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?php echo e(url('/admin/posts')); ?>"><i class="fa fa-files-o text-aqua"></i>Posts</a></li>
-                    <li><a href="<?php echo e(url('/admin/new-post')); ?>"><i class="fa fa-plus-circle text-aqua"></i>Add
-                        Post</a></li>
-                    <li><a href="<?php echo e(url('/admin/categories')); ?>"><i class="fa fa-code-fork text-green"></i>Categories</a></li>
-                    <li><a href="<?php echo e(url('/admin/new-category')); ?>"><i class="fa fa-plus-square-o text-green"></i>Add
-                        Category</a></li>
-                </ul>
-            </li>
-
-            <li class="treeview">
-                <a href="#"><i class="fa fa-wpexplorer text-aqua"></i> <span>Property Type</span>
-                    <span class="pull-right-container">
-                        <i class="fa fa-angle-left pull-right"></i>
-                    </span>
-                </a>
-                <ul class="treeview-menu">
-                    <li><a href="<?php echo e(url('/admin/property-type')); ?>"><i class="fa fa-circle-o text-aqua"></i>All
-                            Property Type</a></li>
-                    <li><a href="<?php echo e(url('/admin/add-property-type')); ?>"><i class="fa fa-circle-o text-aqua"></i>Add
-                            Property Type</a></li>
-                </ul>
-            </li>
-            <li class="treeview">
+            
+            <li class="<?php echo e((request()->is('admin/property*'))|| (request()->is('admin/amenities*'))  ? 'treeview active menu-open' : 'treeview'); ?>">
                 <a href="#"><i class="fa fa-tasks text-green"></i> <span>Property</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo e(url('/admin/properties')); ?>"><i class="fa fa-building text-yellow"></i>All
+                    <li class="<?php echo e((request()->is('admin/property')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/property')); ?>"><i class="fa fa-building text-yellow"></i>All
                             Properties</a></li>
-                    <li><a href="<?php echo e(url('/admin/add-property')); ?>"><i class="fa fa-puzzle-piece text-yellow"></i>Add
+                    <li class="<?php echo e((request()->is('admin/property/add')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/property/add')); ?>"><i class="fa fa-puzzle-piece text-yellow"></i>Add
                             Property</a></li>
-                    <li><a href="<?php echo e(url('/admin/amenities')); ?>"><i class="fa fa-s15 text-yellow"></i>Amenities</a></li>
-                    <li><a href="<?php echo e(url('/admin/add-amenities')); ?>"><i class="fa fa-plus text-yellow"></i>Add
+                    <li class="<?php echo e((request()->is('admin/amenities')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/amenities')); ?>"><i class="fa fa-s15 text-yellow"></i>Amenities</a></li>
+                    <li class="<?php echo e((request()->is('admin/amenities/add')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/amenities/add')); ?>"><i class="fa fa-plus text-yellow"></i>Add
                             Amenity</a></li>
                 </ul>
             </li>
@@ -123,29 +142,33 @@
                 </ul>
             </li> -->
             
-            <li class="treeview">
-                <a href="#"><i class="fa fa-users text-orange"></i> <span>Team</span>
+            <!-- start of Our Team sidebar -->
+            <li class="<?php echo e((request()->is('admin/team_member*'))  ? 'treeview active menu-open' : 'treeview'); ?>">
+                <a href="#"><i class="fa fa-users text-orange"></i> <span>Our Team</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo e(url('/admin/team')); ?>"><i class="fa fa-list text-aqua"></i>Team</a></li>
-                    <li><a href="<?php echo e(url('/admin/new-member')); ?>"><i class="fa fa-plus-square text-aqua"></i>Add New Member</a></li>
+                    <li class="<?php echo e((request()->is('admin/team_member')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/team_member')); ?>"><i class="fa fa-list text-aqua"></i>All Members</a></li>
+                    <li class="<?php echo e((request()->is('admin/team_member/add')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/team_member/add')); ?>"><i class="fa fa-plus-square text-aqua"></i>Add New</a></li>
                 </ul>
             </li>
-
-            <li class="treeview">
+            <!-- end of Our Team sidebar -->
+            
+            <!-- start of Subscriber sidebar -->
+            <li class="<?php echo e((request()->is('admin/subscribers*'))  ? 'treeview active menu-open' : 'treeview'); ?>">
                 <a href="#"><i class="fa fa-handshake-o text-green"></i> <span>Subscribers</span>
                     <span class="pull-right-container">
                         <i class="fa fa-angle-left pull-right"></i>
                     </span>
                 </a>
                 <ul class="treeview-menu">
-                    <li><a href="<?php echo e(url('/admin/subscribers')); ?>"><i class="fa fa-list text-aqua"></i>Subscribers List</a></li>
-                    <li><a href="#"><i class="fa fa-plus-square text-aqua"></i>Add Subscriber</a></li>
+                    <li class="<?php echo e((request()->is('admin/subscribers')) ? 'active' : ''); ?>"><a href="<?php echo e(url('/admin/subscribers')); ?>"><i class="fa fa-list text-aqua"></i>All Subscribers</a></li>
+                    <li class="<?php echo e((request()->is('admin/subscriber')) ? 'active' : ''); ?>"><a href="#"><i class="fa fa-plus-square text-aqua"></i>Add New</a></li>
                 </ul>
             </li>
+             <!-- end of Subscriber sidebar -->
         </ul>
         <!-- /.sidebar-menu -->
     </section>

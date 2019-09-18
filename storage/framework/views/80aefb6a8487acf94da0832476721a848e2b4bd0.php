@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
 
 <style>
@@ -97,15 +96,7 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-md-6">
-                                        <div class="form-group">
-                                            <label>Page Category</label>
-                                            <select name="post_cat" id="post_cat" class="form-control">
-                                                <!-- <option value="0">Main Category</option> -->
-                                                <?php echo $page_category_dropdown; ?>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    
                                     <div class="col-xs-12 col-md-12">
                                         <div class="form-group">
                                             <label>Description</label>
@@ -166,8 +157,9 @@
                                     <div class="col-xs-12 col-md-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="Post Image">Featured Image</label>
-                                            <input type="file" name="featured_image" id="featured_image">
+                                            <input type="file" name="featured_image" id="featured_image" accept="image/x-png,image/gif,image/jpeg" />
                                         </div>
+                                        <p><img width="200" src="<?php echo e(url('/images/frontend/page_images/large/'.$pages->page_image)); ?>" alt=""></p>
                                     </div>
                                     <div class="box-footer">
                                         <button type="submit" class="btn btn-info btn-block">Publish</button>

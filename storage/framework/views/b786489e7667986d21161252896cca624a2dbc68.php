@@ -37,7 +37,7 @@
                  <p>Fax: +971 4 2869062</p>
 
                  <h6><i class="fa fa-globe" aria-hidden="true"></i> Website</h6>
-                  <a href="#">www.rapiddealsuae.com</a>
+                  <a href="<?php echo e(url('/')); ?>"><?php echo e(url('/')); ?></a>
                   <p>DED # 614746  |  ORN # 12756</p>
                 </div>
             </div>

@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3><a href="{{ url('admin/new-banners') }}" class="label label-lg label-success">Add New</a></h3>
+        <h3><a href="{{ url('admin/banner/add') }}" class="label label-lg label-success">Add New</a></h3>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Banners</li>
@@ -40,7 +40,7 @@
                                     <?php $i++ ?>
                                     <td><strong>{{ $i }}</strong></td>
                                     <td><img width="200" src="{{ url('/images/frontend/banner/large/'.$bn->image) }}" alt=""></td>
-                                    <td><a href="{{ $bn->link }}">{{ $bn->title}}</a></td>
+                                    <td><a href="{{ url('/images/frontend/banner/large/'.$bn->image) }}">{{ $bn->title}}</a></td>
                                     <td>{{ $bn->description }}</td>
                                     <td>
                                         <div id="donate">

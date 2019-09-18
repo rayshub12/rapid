@@ -32,29 +32,23 @@
                         <form action="{{ url('/search-result') }}" method="post">
                             <div class="search_input">
                                 <input type="hidden" value="1" name="property_type">
-                                <?php $i = 0;?>
-                                @foreach($location_data as $key =>$loc)
-                                <?php
+                                <select class="selectpicker form-control" name="location_id" id="number" data-container="body"
+                                    data-live-search="true" title="Type your location to search" data-hide-disabled="true">
+                                @foreach(\App\Property::select('l_id','city','community','sub_community','tower')->orderBy('l_id', 'asc')->where('community','!=','')->distinct()->get() as $key => $p)
+                                <option id="city_search" value="{{ $p->l_id }}">
+                                    @if(!empty($p->tower))
+                                        {{ $p->tower }}, {{ $p->sub_community }}, {{ $p->community }}, {{ $p->city}}
                                     
-                                        if($loc->sub_community != null){
-                                            $a[$loc->id] = $loc->sub_community.','.$loc->community.','.$loc->city;
-                                        }else{
-                                            if($loc->community != null){
-                                                $a[$loc->id] = $loc->community.','.$loc->city;
-                                            }else{
-                                                $a[$loc->id] = $loc->city;
-                                            }
-                                        }
-                                   
-                                    $i++;
-                                ?>
-                                @endforeach
-                                <?php $a = array_unique($a); 
-                                asort($a);
-                                ?>
-                                <select class="selectpicker form-control" name="location_id" id="number" data-container="body" data-live-search="true" title="Type your location to search" data-hide-disabled="true">
-                                @foreach($a as $key => $p)
-                                    <option id="city_search" value='<?=$key?>'><?=$p?></li>
+                                    @else
+                                        @if(!empty($p->sub_community))
+                                                {{ $p->sub_community }}, {{ $p->community }}, {{ $p->city}}
+                                            @else
+                                                @if(!empty($p->community))
+                                                    {{ $p->community }}, {{ $p->city}}
+                                                @endif
+                                        @endif
+                                    @endif
+                                </option>
                                 @endforeach
                                 </select>
                                 <button type="submit"><i class="icon ion-md-search"></i></button>
@@ -66,29 +60,23 @@
                         <form action="{{ url('/search-result') }}" method="post">
                             <div class="search_input">
                                 <input type="hidden" value="2" name="property_type">
-                                <?php $i = 0;?>
-                                @foreach($location_data as $key =>$loc)
-                                <?php
+                                <select class="selectpicker form-control" name="location_id" id="number" data-container="body"
+                                    data-live-search="true" title="Type your location to search" data-hide-disabled="true">
+                                @foreach(\App\Property::select('l_id','city','community','sub_community','tower')->orderBy('l_id', 'asc')->where('community','!=','')->distinct()->get() as $key => $p)
+                                <option id="city_search" value="{{ $p->l_id }}">
+                                    @if(!empty($p->tower))
+                                        {{ $p->tower }}, {{ $p->sub_community }}, {{ $p->community }}, {{ $p->city}}
                                     
-                                        if($loc->sub_community != null){
-                                            $a[$loc->id] = $loc->sub_community.','.$loc->community.','.$loc->city;
-                                        }else{
-                                            if($loc->community != null){
-                                                $a[$loc->id] = $loc->community.','.$loc->city;
-                                            }else{
-                                                $a[$loc->id] = $loc->city;
-                                            }
-                                        }
-                                   
-                                    $i++;
-                                ?>
-                                @endforeach
-                                <?php $a = array_unique($a); 
-                                asort($a);
-                                ?>
-                                <select class="selectpicker form-control" name="location_id" id="number" data-container="body" data-live-search="true" title="Type your location to search" data-hide-disabled="true">
-                                @foreach($a as $key => $p)
-                                    <option id="city_search" value='<?=$key?>'><?=$p?></li>
+                                    @else
+                                        @if(!empty($p->sub_community))
+                                                {{ $p->sub_community }}, {{ $p->community }}, {{ $p->city}}
+                                            @else
+                                                @if(!empty($p->community))
+                                                    {{ $p->community }}, {{ $p->city}}
+                                                @endif
+                                        @endif
+                                    @endif
+                                </option>
                                 @endforeach
                                 </select>
                                 <button type="submit"><i class="icon ion-md-search"></i></button>
@@ -100,11 +88,25 @@
                             <form action="{{ url('/search-result') }}" method="post">
                                 <div class="search_input">
                                     <input type="hidden" value="3" name="property_type">
-                                    <select class="selectpicker form-control" name="search_text" id="number" data-container="body" data-live-search="true" title="Type your location to search" data-hide-disabled="true">
-                                    @foreach(\App\City::where('country_id', 231)->orderBy('name', 'asc')->get() as $key => $p )
-                                        <option id="city_search" value='<?=$p['id']?>'><?=$p['name']?></li>
-                                    @endforeach
-                                    </select>
+                                    <select class="selectpicker form-control" name="location_id" id="number" data-container="body"
+                                    data-live-search="true" title="Type your location to search" data-hide-disabled="true">
+                                @foreach(\App\Property::select('l_id','city','community','sub_community','tower')->orderBy('l_id', 'asc')->where('community','!=','')->distinct()->get() as $key => $p)
+                                <option id="city_search" value="{{ $p->l_id }}">
+                                    @if(!empty($p->tower))
+                                        {{ $p->tower }}, {{ $p->sub_community }}, {{ $p->community }}, {{ $p->city}}
+                                    
+                                    @else
+                                        @if(!empty($p->sub_community))
+                                                {{ $p->sub_community }}, {{ $p->community }}, {{ $p->city}}
+                                            @else
+                                                @if(!empty($p->community))
+                                                    {{ $p->community }}, {{ $p->city}}
+                                                @endif
+                                        @endif
+                                    @endif
+                                </option>
+                                @endforeach
+                                </select>
                                     <button type="submit"><i class="icon ion-md-search"></i></button>
                                 </div>
                                 {{ csrf_field() }}
@@ -124,48 +126,28 @@
                 <div class="prop_inn">
                     <div class="protitle_box">
                         @if($properties)
-                        <h4>Properties
-                        @foreach($properties as $p)
-                            @if($p->property_for == 1) for Sale
-                            @elseif($p->property_for == 2) for Rent
-                            @endif</h4>
-                        <h2>In UAE</h2>
-                        @break
-                        @endforeach
-                        @else
-                        <h4>Properties</h4>
-                        <h2>In UAE</h2>
+                            <h4>Properties
+                            @foreach($properties as $p)
+                                @if($p->offering_type == 'sale') for Sale
+                                @elseif($p->offering_type == 'rent') for Rent
+                                @endif</h4>
+                            @break
+                            @endforeach
+                            <h2>In UAE</h2>
                         @endif
                     </div>
                     
                     <div class="proplistbox">
                         <ul>
-                            <?php $prop_type = array(); 
-                            $i=0;
-                            ?>
-                            @foreach($properties1 as $key => $p)
-                            <?php 
-                            
-                            $prop_type[$p->type->id] = $p->property_type; 
-                           
-                            ?> 
-                            @endforeach  
-                            @foreach($prop_type as $key => $prop_value)
-                             <li> 
-                                 <?php
-                                    
-                                    if($properties1[0]->property_for == 1){
-                                 ?>
-                                <a href="{{ url( '/category/property/sale/'.$key.'/'.$prop_value.'/1' ) }}">{{$prop_value}} </a>
-                                <?php
-                                    }elseif($properties1[0]->property_for == 2){
-                                ?>
-                                <a href="{{ url( '/category/property/rent/'.$key.'/'.$prop_value.'/1' ) }}">{{$prop_value}}</a>
-                                <?php
-                                }
-                                ?>
+                        @foreach($type_name as $tn) 
+                            <li>
+                            @if($p->project_status == 'off_plan')
+                            <a href="{{ url('/properties/for/'.$p->project_status.'/'.$tn->t_name) }}">{{ $tn->t_name }} ({{ \App\Property::where('t_name', $tn->t_name)->where('project_status', 'off_plan')->count() }})</a>
+                            @else
+                                <a href="{{ url('/properties/for/'.$p->offering_type.'/'.$tn->t_name) }}">{{ $tn->t_name }} ({{ \App\Property::where('t_name', $tn->t_name)->where('offering_type', $p->offering_type)->count() }})</a>
+                            @endif
                             </li>
-                            @endforeach
+                        @endforeach
                         </ul>
                     </div>
                 </div>
@@ -183,7 +165,7 @@
                             <!--    <option value="2">Price: Low to High</option>-->
                             <!--    <option value="3">Price: High to Low</option>-->
                             <!--</select>-->
-                            <strong id="pro"><?php echo count($properties); ?> results</strong>
+                            <strong id="pro"><?php echo $property_count; ?> results</strong>
                         </div>
                         <div id="loading">
                             <img src="/images/frontend/images/LoadingCircle_firstani.gif" /> 
@@ -202,27 +184,32 @@
                             @foreach($properties as $p)
                             <div class="proplist">
                                 <div class="proplist_img" style="text-align: center;">
-                                    @if(!empty($p->image_name))
-                                    <img src="{{ url('/images/frontend/property_images/large/'.$p->image_name) }}">
-                                    @elseif(!empty($p->images[0]->medium->link))
-                                    <img height="200" src="{{ $p->images[0]->medium->link }}">
+                                    @if(!empty($p->images_mlink))
+                                        @foreach(explode(',',$p->images_mlink) as $key => $image_m)
+                                            @if($key == 0)
+                                            <img style="max-height:225px;" class="img-responsive" src="{{ $image_m }}">
+                                            @endif
+                                        @endforeach
+                                    @elseif(\App\PropertyImage::where('property_id', $p->id)->count() > 0)
+                                        @foreach(\App\PropertyImage::where('property_id', $p->id)->take(1)->get() as $pim)
+                                            <img class="img-responsive" src="{{ url('images/frontend/property_images/large/'.$pim->image_name) }}">
+                                        @endforeach
                                     @else
-                                    <img src="{{ url('images/frontend/property_images/large/default.png') }}">
+                                        <img src="{{ url('images/frontend/property_images/large/default.png') }}">
                                     @endif
                                 </div>
                                 <div class="proplist_item">
                                     <div class="pro_con">
-                                        <label
-                                            class="badge badge-warning">{{ $p->property_type }}</label>
-                                        <label class="badge badge-success">@if($p->property_for == 1) Buy
-                                            @elseif($p->property_for == 2) Rent @elseif($p->property_for == 3) Off Plan
+                                        <label class="badge badge-warning">{{ $p->t_name }}</label> @if(!empty($p->project_status))<label class="badge badge-info">Off Plan </label>@endif
+                                        <label class="badge badge-success">@if($p->offering_type == 'sale') Buy
+                                            @elseif($p->offering_type == 'rent') Rent @elseif($p->offering_type == 'off-plan') Off Plan
                                             @endif</label>
-                                        <h5>{{ $p->city_name }}, {{ $p->state_name }}</h5>
-                                        <p>{{ $p->name }}</p>
-                                        <h6>@if($p->property_for == 2)
-                                            @if(!empty($p->property_price))AED {{ $p->property_price }} <span>/Year</span>@endif
+                                        <h5>{{ $p->community }}, {{ $p->city }}</h5>
+                                        <p>{{ $p->pro_title }}</p>
+                                        <h6>@if($p->offering_type == 2)
+                                            @if(!empty($p->price_value))AED {{ $p->price_value }} <span>/Year</span>@endif
                                             @else
-                                            @if(!empty($p->property_price))AED {{ $p->property_price }}@endif
+                                            @if(!empty($p->price_value))AED {{ $p->price_value }}@endif
                                             @endif</h6>
                                         <ul>
                                             @if(!empty($p->bedrooms))<li>
@@ -238,47 +225,20 @@
                                 </div>
                                 <div class="callquiery">
                                     <!--<p>Posted on {{ date('M d, Y', strtotime($p->created_at)) }}</p>-->
-                                    <a href="{{ url('/properties/'.$p->id) }}" class="readmore_btn">Read More</a>
+                                    <a href="{{ url('/properties/'.$p->reference) }}" class="readmore_btn">Read More</a>
                                 </div>
                             </div>
                             @endforeach
                         </div>
                     </div>
-                    <div class="center" style="text-align: center; width: 100%;">
-                        <div class="pagination" style="display: inline-block;">
-                        @if($counter != null)
-                            @if(isset($current_page))
-                            <?php $prev = $current_page - 1; ?>
-                            <?php $next_page = $current_page + 1; ?>
-
-                            @if(($has_next_page == true) && ($has_previous_page == false))
-
-                            <li style="float:right;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a
-                                    href="{{ Route::current()->getName().$next_page }}"
-                                    class="btn btn-sm btn-info">Next &raquo;</a></li>
-
-
-
-                            @elseif(($has_next_page == false) && ($has_previous_page == true))
-                            <li style="float:left;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a
-                                    href="{{ Route::current()->getName().$prev }}"
-                                    class="btn btn-sm btn-info">&laquo; Previous</a></li>
-
-                            @elseif(($has_next_page == true) && ($has_previous_page == true))
-                            <li style="float:left;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a
-                                    href="{{ Route::current()->getName().$prev }}"
-                                    class="btn btn-sm btn-info">&laquo;  Previous</a></li>
-
-                            <li style="float:right;list-style:none;padding-top: 0.5em;padding-left: 1em;"><a
-                                    href="{{ Route::current()->getName().$next_page }}"
-                                    class="btn btn-sm btn-info">Next &raquo;</a></li>
-
-                            @endif
-                            @endif
-                        @endif
-                        </div>
-                    </div>
-                    
+                </div>
+                <div class="product_loadding center">
+                    @if( !empty($type))
+                    {!! $properties->appends(array("property_type" => $type, "location_id" => $scityID ))->render() !!}
+                    @else
+                        {!! $properties->render() !!}
+                    @endif
+                    <!-- <img src="/images/frontend_images/images/loadder.svg"> -->
                 </div>
             </div>
         </section>
@@ -295,10 +255,10 @@
                 <div class="col-md-6">
                     <div class="proplistbox nearby_item">
                         <ul>
-                            <li><a href="{{ url('/property/48003/al-quoz') }}">Buy Properties in Al Quoz</a></li>
-                            <li><a href="{{ url('/property/47987/dubai-city') }}">Buy Properties in Dubai City</a></li>
-                            <li><a href="{{ url('/property/48008/hatta') }}">Buy Properties in Hatta</a></li>
-                            <li><a href="{{ url('/property/48064/arjan') }}">Buy Properties in Arjan</a></li>
+                            <li><a href="{{ url('/property/in/International City') }}">Buy Properties in International City</a></li>
+                            <li><a href="{{ url('/property/in/Greens') }}">Buy Properties in Greens</a></li>
+                            <li><a href="{{ url('/property/in/Dubai Hills Estate') }}">Buy Properties in Dubai Hills Estate</a></li>
+                            <li><a href="{{ url('/property/in/Jumeirah Lake Towers') }}">Buy Properties in Jumeirah Lake Towers</a></li>
                         </ul>
                     </div>
                 </div>

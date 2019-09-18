@@ -83,7 +83,7 @@ function generate_string($input, $strength = 16) {
                 <div class="box box-purple">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form enctype="multipart/form-data" method="post" action="{{ url('/admin/add-property') }}"
+                        <form enctype="multipart/form-data" method="post" action="{{ url('/admin/property/add') }}"
                             name="add_property" id="add_property" novalidate="novalidate">
                             {{ csrf_field() }}
                             <div class="col-sm-12 col-md-9">
@@ -100,7 +100,7 @@ function generate_string($input, $strength = 16) {
                                                     class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-md-6">
+                                        <!-- <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="Url">Url</label>
                                                 <div class="input-group">
@@ -108,7 +108,7 @@ function generate_string($input, $strength = 16) {
                                                     <input type="text" name="slug" id="slug" class="form-control">
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="Property For">Property For</label>
@@ -116,9 +116,19 @@ function generate_string($input, $strength = 16) {
                                                     class="form-control select2" style="width: 100%;" tabindex="-1"
                                                     aria-hidden="true">
                                                     <option value="" selected>Properties</option>
-                                                    <option value="1">Buy</option>
-                                                    <option value="2">Rent</option>
-                                                    <option value="3">Off Plan</option>
+                                                    <option value="sale">Buy</option>
+                                                    <option value="rent">Rent</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="Project Status">Project Status</label>
+                                                <select name="project_status" id="project_status"
+                                                    class="form-control select2" style="width: 100%;" tabindex="-1"
+                                                    aria-hidden="true">
+                                                    <option value="" selected>Select Project Status</option>
+                                                    <option value="off_plan">Off Plan</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -129,13 +139,13 @@ function generate_string($input, $strength = 16) {
                                                     style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     <option value="" selected>Select Property Type</option>
                                                     @foreach($propertytype as $ptype)
-                                                    <option value="{{ $ptype->type_code }}">
+                                                    <option value="{{ $ptype->name }}">
                                                         {{ $ptype->name }}</option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-md-4 hidden">
+                                        <!-- <div class="col-xs-12 col-md-4 hidden">
                                             <div class="form-group">
                                                 <label name="Property Code">Property Code</label>
                                                 <div class="input-group">
@@ -144,7 +154,7 @@ function generate_string($input, $strength = 16) {
                                                         class="form-control">
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
@@ -169,7 +179,7 @@ function generate_string($input, $strength = 16) {
                                                     class="form-control my-editor"></textarea>
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-md-6">
+                                        <!-- <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
                                                 <label>
                                                     <input type="checkbox" name="feature" id="feature"
@@ -178,9 +188,9 @@ function generate_string($input, $strength = 16) {
                                                         Property )</small>
                                                 </label>
                                             </div>
-                                        </div>
+                                        </div> -->
 
-                                        <div class="col-xs-12 col-md-6">
+                                        <!-- <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
                                                 <label>
                                                     <input type="checkbox" name="commercial" id="commercial"
@@ -189,7 +199,7 @@ function generate_string($input, $strength = 16) {
                                                         Property )</small>
                                                 </label>
                                             </div>
-                                        </div>
+                                        </div> -->
 
                                         <div class="col-xs-12 col-md-4">
                                             <div class="form-group">
@@ -204,14 +214,12 @@ function generate_string($input, $strength = 16) {
 
                                         <div class="col-xs-12 col-md-4">
                                             <div class="form-group">
-                                                <label for="Property Facing">Property Facing</label>
-                                                <select name="property_facing" id="property_facing"
+                                                <label for="Property Facing">Property Category</label>
+                                                <select name="property_category" id="property_category"
                                                     class="form-control">
-                                                    <option value="" selected>Select Property Facing</option>
-                                                    <option value="East">East Facing</option>
-                                                    <option value="West">West Facing</option>
-                                                    <option value="North">North Facing</option>
-                                                    <option value="South">South Facing</option>
+                                                    <option value="" selected>Select Property Category</option>
+                                                    <option value="residential">Residential</option>
+                                                    <option value="commercial">Commercial</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -221,45 +229,35 @@ function generate_string($input, $strength = 16) {
                                                 <label for="Furnish Type">Furnish Type</label>
                                                 <select name="furnish_type" id="furnish_type" class="form-control">
                                                     <option value="" selected>Select Furnish Type</option>
-                                                    <option value="F">Fully Furnished</option>
-                                                    <option value="S">Semi Furnished</option>
-                                                    <option value="U">Unfurnished</option>
+                                                    <option value="furnished">Fully Furnished</option>
+                                                    <option value="semi-furnished">Semi Furnished</option>
+                                                    <option value="unfurnished">Unfurnished</option>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="col-xs-12 col-md-4">
                                             <div class="form-group">
-                                                <label for="Transection Type">Transaction Type</label>
-                                                <select name="transection_type" id="transection_type"
+                                                <label for="Transection Type">Occupancy</label>
+                                                <select name="occupancy" id="transection_type"
                                                     class="form-control">
-                                                    <option value="" selected>Select Transaction Type</option>
-                                                    <option value="New Booking">New Booking</option>
-                                                    <option value="Resale">Resale</option>
+                                                    <option value="" selected>Select Occupancy Type</option>
+                                                    <option value="Vacant">Vacant</option>
+                                                    <option value="Booked">Booked</option>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="col-xs-12 col-md-4">
                                             <div class="form-group">
-                                                <label>Construction Status</label>
-                                                <select name="construction_status" id="construction_status"
+                                                <label>Availability</label>
+                                                <select name="availability" id="construction_status"
                                                     class="form-control">
-                                                    <option value="" selected>Select Construction Status</option>
-                                                    <option value="UC">Under Construction</option>
-                                                    <option value="RM">Ready to Move</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div id="Rooms" class="col-xs-6 col-sm-6 col-md-4">
-                                            <div class="form-group">
-                                                <label for="Apple Trees">Rooms</label>
-                                                <select name="rooms" id="rooms" class="form-control">
-                                                    <option value="" selected>Select Rooms</option>
-                                                    <?php for($i=1; $i<1000; $i++) { ?>
-                                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                                    <?php } ?>
+                                                    <option value="" selected>Select Availability</option>
+                                                    <option value="available">Availability</option>
+                                                    <option value="under_offer">Under Offer</option>
+                                                    <option value="reserved">Reserved</option>
+                                                    <option value="rented">Rented</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -300,37 +298,36 @@ function generate_string($input, $strength = 16) {
                                             </div>
                                         </div>
 
-                                        <div id="PWashroom" class="col-xs-6 col-sm-6 col-md-4">
+                                        <div id="PDeveloper" class="col-xs-6 col-sm-6 col-md-4">
                                             <div class="form-group">
-                                                <label for="Personal Washroom">Personal Washroom</label>
-                                                <select name="p_washroom" id="p_washroom" class="form-control">
-                                                    <option value="" selected>Select</option>
-                                                    <option value="1">Yes</option>
-                                                    <option value="0">No</option>
+                                                <label for="Property Developer">Property Developer</label>
+                                                <input type="text" class="form-control" id="property_developer" name="property_developer">
+                                            </div>
+                                        </div>
+
+                                        <div id="PropertyTenure" class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="form-group">
+                                                <label for="Tenure of Property">Tenure of Property</label>
+                                                <select name="property_tenure" id="property_tenure" class="form-control">
+                                                    <option value="" selected>Select Property Tenure</option>
+                                                    <option value="freehold">Freehold</option>
+                                                    <option value="non-freehold">Non-Freehold</option>
+                                                    <option value="leasehold">Leasehold</option>
                                                 </select>
                                             </div>
                                         </div>
 
-                                        <div id="Cafeteria" class="col-xs-6 col-sm-6 col-md-4">
+                                        <div id="FloorNo" class="col-xs-6 col-sm-6 col-md-4">
                                             <div class="form-group">
-                                                <label for="Cafeteria">Pantry/Cafeteria</label>
-                                                <select name="cafeteria" id="cafeteria" class="form-control">
-                                                    <option value="" selected>Select</option>
-                                                    <option value="1">Yes</option>
-                                                    <option value="0">No</option>
-                                                </select>
+                                                <label for="Floor Number">Floor Number</label>
+                                                <input type="text" class="form-control" id="floor_number" name="floor_number">
                                             </div>
                                         </div>
 
-                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                        <div class="col-xs-12 col-sm-6 col-md-4">
                                             <div class="form-group">
-                                                <label for="Property Age">Property Age</label>
-                                                <select name="property_age" id="property_age" class="form-control">
-                                                    <option value="" selected>Select</option>
-                                                    <?php for($i=1; $i<100; $i++) { ?>
-                                                    <option value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                                    <?php } ?>
-                                                </select>
+                                                <label for="RERA Listing Number">RERA Listing Number</label>
+                                                <input type="text" name="rera_number" id="rera_number" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -341,19 +338,15 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <label for="Property Address">Property Address 1</label>
-                                                <textarea name="property_address1" id="property_address1"
-                                                    class="form-control" rows="3"
-                                                    placeholder="Address Line 1"></textarea>
+                                                <label for="Street Number">Street Number</label>
+                                                <input type="text" class="form-control" name="street_number" id="street_number">
                                             </div>
                                         </div>
 
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <label for="Property Address">Property Address 2</label>
-                                                <textarea name="property_address2" id="property_address2"
-                                                    class="form-control" rows="3"
-                                                    placeholder="Address Line 2"></textarea>
+                                                <label for="Street Name">Street Name</label>
+                                                <input type="text" name="street_name" id="street_name" class="form-control">
                                             </div>
                                         </div>
 
@@ -367,52 +360,15 @@ function generate_string($input, $strength = 16) {
 
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <label for="Locality">Locality</label>
-                                                <input type="text" name="locality" id="locality" class="form-control">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label for="Country">Country</label>
-                                                <select name="country" id="country" class="form-control"
-                                                    style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                                    @foreach($countrylist as $c)
-                                                    <option value="{{ $c->iso2 }}">{{ $c->name }}</option>
+                                                <label for="State">Property Location</label>
+                                                <select class="form-control select2 select2-hidden-accessible"
+                                                    name="location_id" id="search_text" style="width: 100%;" tabindex="-1"
+                                                    aria-hidden="true" data-placeholder="Tower, Community...">
+                                                    <option value="" selected>Select Location</option>
+                                                    @foreach($location as $locate)
+                                                    <option value="{{ $locate->l_id }}">@if(!empty($locate->tower)){{ $locate->tower }}, {{ $locate->sub_community }}, {{ $locate->community }}, {{ $locate->city }}@elseif(!empty($locate->sub_community)) {{ $locate->sub_community }}, {{ $locate->community }}, {{ $locate->city }} @elseif(!empty($locate->community)) {{ $locate->community }}, {{ $locate->city }} @endif</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label for="State">State</label>
-                                                <select class="form-control select2 select2-hidden-accessible"
-                                                    name="state" id="state" style="width: 100%;" tabindex="-1"
-                                                    aria-hidden="true">
-                                                    <option value="" selected>Select State</option>
-                                                    @foreach($states as $s)
-                                                    <option value="{{ $s->id }}">{{ $s->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label for="City">City</label>
-                                                <select class="form-control select2 select2-hidden-accessible"
-                                                    name="city" id="city" style="width: 100%;" tabindex="-1"
-                                                    aria-hidden="true">
-                                                    <option value="" selected>Select City</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label for="Zipcode/Postal Code">Zipcode/Postal Code</label>
-                                                <input name="zipcode" id="zipcode" type="text" class="form-control">
                                             </div>
                                         </div>
                                     </div>
@@ -457,7 +413,7 @@ function generate_string($input, $strength = 16) {
                                                 <label>
                                                     <input type="checkbox" name="amenity[]"
                                                         id="<?php echo preg_replace('/[^a-zA-Z0-9-]/','' ,strtolower($a->name)); ?>"
-                                                        class="flat-green" value="{{ $a->amenity_code }}"> {{ $a->name }}
+                                                        class="flat-green" value="{{ $a->name }}"> {{ $a->name }}
                                                 </label>
                                             </div>
                                         </div>

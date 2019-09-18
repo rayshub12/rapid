@@ -17,9 +17,10 @@ class PostController extends Controller
 
         if($request->isMethod('post'))
         {
+            $request->validate([
+                'name' => 'required',    
+                ]);
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
-
             $author = Auth::user()->id;
 
             if(!empty('status')){
@@ -63,7 +64,7 @@ class PostController extends Controller
             }
             $post_data->save();
 
-            return redirect('/admin/posts')->with('flash_message_success', 'Post Published Successfully!');
+            return redirect('/admin/post')->with('flash_message_success', 'Post Published Successfully!');
         }
 
         $post_category = PostCategory::where(['parent_cat' => 0])->get();
@@ -88,7 +89,7 @@ class PostController extends Controller
     public function postsAll()
     {
         $posts = Post::orderBy('created_at', 'desc')->get();
-
+    
         return view('admin.posts.posts_all', compact('posts'));
     }
 
@@ -138,24 +139,61 @@ class PostController extends Controller
     }
 
     // Edit Post
-    public function editPost($id=null)
+    public function editPost(Request $request, $id=null)
     {
         $posts = Post::where('id', $id)->first();
         $posts = json_decode(json_encode($posts));
 
         $post_category = PostCategory::where(['parent_cat' => 0])->get();
-        $post_category_dropdown = '<option value="0" selected="selected">Main Category</option>';
-
+        $post_category_dropdown = '<option value="0" >Main Category</option>';
+        $sel ="";
+    
         foreach ($post_category as $pCategory) {
-            $post_category_dropdown .= "<option value='" . $pCategory->id . "'><strong>" . $pCategory->name . "</strong></option>";
+            if($posts->post_cat == $pCategory->id){ 
+                $sel = 'selected'; 
+                $post_category_dropdown .= "<option value='" . $pCategory->id . "' selected='". $sel ."'><strong>" . $pCategory->name . "</strong></option>";
+            }
+            $post_category_dropdown .= "<option value='" . $pCategory->id . "' ><strong>" . $pCategory->name . "</strong></option>";
             $sub_post_category = PostCategory::where(['parent_cat' => $pCategory->id])->get();
             foreach ($sub_post_category as $sub_pCategory) {
-                $post_category_dropdown .= "<option value='" . $sub_pCategory->id . "'>&nbsp;--&nbsp;" . $sub_pCategory->name . "</option>";
+                if($posts->post_cat == $sub_pCategory->id){ 
+                    $sel = 'selected'; 
+                    $post_category_dropdown .= "<option value='" . $sub_pCategory->id . "' selected='". $sel ."'>&nbsp;--&nbsp;" . $sub_pCategory->name . "</option>";
+                }
+                $post_category_dropdown .= "<option value='" . $sub_pCategory->id . "' >&nbsp;--&nbsp;" . $sub_pCategory->name . "</option>";
                 $sub_sub_post_category = PostCategory::where(['parent_cat' => $sub_pCategory->id])->get();
                 foreach ($sub_sub_post_category as $sub_subpCategory) {
-                    $post_category_dropdown .= "<option value='" . $sub_subpCategory->id . "'>&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;" . $sub_subpCategory->name . "</option>";
+                    if($posts->post_cat == $sub_subpCategory->id){ 
+                        $sel = 'selected'; 
+                        $post_category_dropdown .= "<option value='" . $sub_subpCategory->id . "' selected='". $sel ."'>&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;" . $sub_subpCategory->name . "</option>";
+                    }
+                    $post_category_dropdown .= "<option value='" . $sub_subpCategory->id . "' >&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;" . $sub_subpCategory->name . "</option>";
                 }
             }
+        }
+        
+        if($request->isMethod('post'))
+        {
+            $data = $request->all();
+            
+            // echo "<pre>"; print_r($data); die;
+            
+            if(!empty('status')){
+                $status = 1;
+            }else{
+                $status = 0;
+            }
+            if(empty('feature_post')){
+                $featured = 0;
+            }else{
+                $featured = 1;
+            }
+            // echo "<pre>"; print_r($featured); die;
+            
+            Post::where('id', $id)->update(['title'=>$data['name'], 'url'=>$data['url'], 'post_cat'=>$data['post_cat'], 'post_type'=>$data['post_type'], 'content'=>$data['description'], 'status'=>$status, 'featured'=>$featured]);
+            
+            return redirect('/admin/post')->with('flash_message_success', 'Post Updated Successfully!');
+            
         }
 
         return view('admin.posts.edit_posts', compact('posts', 'post_category_dropdown'));

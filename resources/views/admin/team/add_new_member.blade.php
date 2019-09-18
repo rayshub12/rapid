@@ -4,6 +4,8 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    
+    
     <section class="content-header">
         <h1>Add New Member</h1>
         <ol class="breadcrumb">
@@ -19,14 +21,20 @@
                 <div class="box box-success">
                     <!-- form start -->
                     <form role="form" enctype="multipart/form-data" name="add_member" id="add_member"
-                        method="POST" action="{{ url('/admin/new-member') }}">
+                        method="POST" action="{{ url('/admin/team_member/add') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <label>Name</label>
-                                        <span id="error_name" class="pull-right"></span>
+                                        @if ($errors->any())
+                                        <span id="error_name " class="pull-right">
+                                            @foreach ($errors->all() as $error)
+                                                <label class="text-danger">{{ $error }}<label>
+                                            @endforeach
+                                        </span>
+                                        @endif
                                         <input type="text" name="name" id="TeamName" class="form-control"
                                             placeholder="Name">
                                     </div>
@@ -52,7 +60,7 @@
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <label>Team Member Image</label>
-                                        <input type="file" name="member_image" id="member_image" class="form-control">
+                                        <input type="file" name="member_image" id="member_image" class="form-control" accept="image/x-png,image/gif,image/jpeg" />
                                     </div>
                                 </div>
                             </div>

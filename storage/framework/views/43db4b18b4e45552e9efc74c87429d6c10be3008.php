@@ -1,11 +1,10 @@
-
 <?php $__env->startSection('content'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3><a href="<?php echo e(url('admin/new-banners')); ?>" class="label label-lg label-success">Add New</a></h3>
+        <h3><a href="<?php echo e(url('admin/banner/add')); ?>" class="label label-lg label-success">Add New</a></h3>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Banners</li>
@@ -40,7 +39,7 @@
                                     <?php $i++ ?>
                                     <td><strong><?php echo e($i); ?></strong></td>
                                     <td><img width="200" src="<?php echo e(url('/images/frontend/banner/large/'.$bn->image)); ?>" alt=""></td>
-                                    <td><a href="<?php echo e($bn->link); ?>"><?php echo e($bn->title); ?></a></td>
+                                    <td><a href="<?php echo e(url('/images/frontend/banner/large/'.$bn->image)); ?>"><?php echo e($bn->title); ?></a></td>
                                     <td><?php echo e($bn->description); ?></td>
                                     <td>
                                         <div id="donate">

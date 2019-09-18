@@ -1,11 +1,10 @@
-
 <?php $__env->startSection('content'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3><a href="<?php echo e(url('admin/add-property-type')); ?>" class="label label-lg label-success">Add New</a></h3>
+        <h3><a href="<?php echo e(url('admin/prop_type/add')); ?>" class="label label-lg label-success">Add New</a></h3>
         <ol class="breadcrumb">
             <li><a href="#"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Property Types</li>

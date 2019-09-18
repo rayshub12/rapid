@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -19,7 +18,7 @@
                 <div class="box box-success">
                     <!-- form start -->
                     <form role="form" name="add_amenity" id="add_amenity" method="POST"
-                        action="<?php echo e(url('/admin/add-amenities')); ?>">
+                        action="<?php echo e(url('/admin/amenities/add')); ?>">
                         <?php echo e(csrf_field()); ?>
 
                         <div class="box-body">

@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
 
 <style>
@@ -68,7 +67,7 @@
                 <div class="box box-success">
                     <!-- form start -->
                     <form role="form" enctype="multipart/form-data" name="add_post" id="add_post" method="POST"
-                        action="<?php echo e(url('/admin/new-post')); ?>">
+                        action="<?php echo e(url('/admin/post/add')); ?>">
                         <?php echo e(csrf_field()); ?>
 
                         <div class="col-xs-12 col-md-9">
@@ -142,7 +141,7 @@
                                     <div class="col-xs-12 col-md-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="Post Image">Featured Image</label>
-                                            <input type="file" name="featured_image" id="featured_image">
+                                            <input type="file" name="featured_image" id="featured_image" accept="image/x-png,image/gif,image/jpeg" />
                                         </div>
                                     </div>
                                     <div class="box-footer">

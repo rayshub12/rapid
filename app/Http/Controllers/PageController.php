@@ -18,16 +18,18 @@ class PageController extends Controller
 
         if($request->isMethod('post'))
         {
+            $request->validate([
+                'name' => 'required',
+            ]);
             $data = $request->all();
-            // echo "<pre>"; print_r($data); die;
-
             $author = Auth::user()->id;
-
+            
             if(!empty($data['status'])){
                 $status = 1;
             }else{
                 $status = 0;
             }
+            
             if(!empty($data['feature_page'])){
                 $featured = 1;
             }else{
@@ -38,6 +40,7 @@ class PageController extends Controller
                 $career_form = 1;
             }else{
                 $career_form = 0;
+                
             }if(!empty($data['contact_form'])){
                 $contact_form = 1;
             }else{
@@ -49,12 +52,12 @@ class PageController extends Controller
             $page_data->title           = $data['name'];
             $page_data->sub_title       = $data['sub_title'];
             $page_data->url             = $data['url'];
-            $page_data->page_cat        = $data['page_cat'];
+            // $page_data->page_cat        = $data['page_cat'];
             $page_data->page_type       = $data['page_type'];
             $page_data->template_type   = $data['template_type'];
             $page_data->author          = $author;
             $page_data->content         = $data['description'];
-            $page_data->form            = $data['form'];
+            // $page_data->form            = $data['form'];
             $page_data->status          = $status;
             $page_data->featured        = $featured;
 
@@ -110,8 +113,10 @@ class PageController extends Controller
     public function singlePage($url=null)
     {
         $pages = Page::where('url', $url)->orderBy('created_at', 'desc')->get();
+        // echo "<pre>"; print_r($pages); die;
         foreach($pages as $page){
             $temp = $page['template_type'];
+            // echo "<pre>"; print_r($temp);
         }
         if( $temp == 1 ){
             return view('frontend.pages.single_page', compact('pages'));
@@ -151,10 +156,84 @@ class PageController extends Controller
     }
 
     // Edit Page
-    public function editPage($id=null)
+    public function editPage(Request $request, $id=null)
     {
         $pages = Page::where('id', $id)->first();
         $pages = json_decode(json_encode($pages));
+        
+        if($request->isMethod('post'))
+        {
+
+            $data = $request->all();
+
+            if(!empty($data['status'])){
+                $status = 1;
+            }else{
+                $status = 0;
+            }
+            if(!empty($data['feature_page'])){
+                $featured = 1;
+            }else{
+                $featured = 0;
+            }
+    
+            if(!empty($data['career_form'])){
+                $career_form = 1;
+            }else{
+                $career_form = 0;
+            }if(!empty($data['contact_form'])){
+                $contact_form = 1;
+            }else{
+                $contact_form = 0;
+            }
+    
+    
+            if ($request->hasFile('featured_image')) {
+                $image_tmp = Input::file('featured_image');
+                if ($image_tmp->isValid()) {
+    
+                    $extension = $image_tmp->getClientOriginalExtension();
+                    $filename = 'Repid_Deals_' . rand(1, 99999) . '.' . $extension;
+                    $large_image_path = 'images/frontend/page_images/large/' . $filename;
+                    $small_image_path = 'images/frontend/page_images/small/' . $filename;
+                    // Resize image
+                    Image::make($image_tmp)->save($large_image_path);
+                    Image::make($image_tmp)->resize(569, 395)->save($small_image_path);
+    
+                    // Store image in Page Image folder
+                    
+                    Page::where(['id' => $id])->update([
+                        
+                        'title'         =>$data['name'],
+                        'sub_title'     =>$data['sub_title'],
+                        'url'           =>$data['url'],
+                        'page_cat'      =>$data['post_cat'],
+                        'page_type'     =>$data['post_type'],
+                        'template_type' =>$data['template_type'],
+                        'contact_form'  =>$contact_form,
+                        'career_form'   =>$career_form,
+                        'content'       =>$data['description'],
+                        'page_image'    =>$filename
+    
+                    ]);
+                }
+            }else{
+    
+                Page::where(['id' => $id])->update([
+                    
+                    'title'         =>$data['name'],
+                    'sub_title'     =>$data['sub_title'],
+                    'url'           =>$data['url'],
+                    'page_cat'      =>$data['post_cat'],
+                    'page_type'     =>$data['post_type'],
+                    'template_type' =>$data['template_type'],
+                    'contact_form'  =>$contact_form,
+                    'career_form'   =>$career_form,
+                    'content'       =>$data['description'],
+    
+                ]);
+            }
+        }
 
         $page_category = PageCategory::where(['parent_cat' => 0])->get();
         $page_category_dropdown = '<option value="0" selected="selected">Main Category</option>';
@@ -220,7 +299,7 @@ class PageController extends Controller
                     'title'         =>$data['name'],
                     'sub_title'     =>$data['sub_title'],
                     'url'           =>$data['url'],
-                    'page_cat'      =>$data['post_cat'],
+                    // 'page_cat'      =>$data['post_cat'],
                     'page_type'     =>$data['post_type'],
                     'template_type' =>$data['template_type'],
                     'contact_form'  =>$contact_form,
@@ -237,7 +316,7 @@ class PageController extends Controller
                 'title'         =>$data['name'],
                 'sub_title'     =>$data['sub_title'],
                 'url'           =>$data['url'],
-                'page_cat'      =>$data['post_cat'],
+                // 'page_cat'      =>$data['post_cat'],
                 'page_type'     =>$data['post_type'],
                 'template_type' =>$data['template_type'],
                 'contact_form'  =>$contact_form,
@@ -247,7 +326,6 @@ class PageController extends Controller
             ]);
         }
         $pages = Page::orderBy('created_at', 'desc')->get();
-
         return view('admin.pages.pages_all', compact('pages'));
     }
 }

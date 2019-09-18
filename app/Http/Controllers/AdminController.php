@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Session;
 use App\User;
+use App\Property;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
@@ -42,7 +43,10 @@ class AdminController extends Controller
     // Dashboard function
     public function dashboard()
     {
-        return view('admin.dashboard');
+        $properties = Property::orderBy('p_created_at', 'desc')->take(10)->get();
+        // $properties = json_encode(json_decode($properties));
+
+        return view('admin.dashboard', compact('properties'));
     }
 
     // Admin/User logout

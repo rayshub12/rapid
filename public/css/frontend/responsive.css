@@ -25,5 +25,7 @@
     width: 100%;
     min-width: 100%;
 }
-
+.mapbox iframe {
+    height: 30vh;
+}
 }

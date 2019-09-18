@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
 
 <!-- Content Wrapper. Contains page content -->
@@ -19,7 +18,7 @@
                 <div class="box box-success">
                     <!-- form start -->
                     <form role="form" name="add_property_type" id="add_property_type" method="POST"
-                        action="<?php echo e(url('/admin/add-property-type')); ?>">
+                        action="<?php echo e(url('/admin/prop_type/add')); ?>">
                         <?php echo e(csrf_field()); ?>
 
                         <div class="box-body">
@@ -27,6 +26,13 @@
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <label>Property Type</label>
+                                        <?php if($errors->any()): ?>
+                                        <span id="error_name " class="pull-right">
+                                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <label class="text-danger"><?php echo e($error); ?><label>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </span>
+                                        <?php endif; ?>
                                         <input type="text" name="property_type_name" id="property_type_name" class="form-control"
                                             placeholder="Property Type">
                                     </div>

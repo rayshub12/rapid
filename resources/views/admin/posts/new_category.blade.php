@@ -19,7 +19,7 @@
                 <div class="box box-success">
                     <!-- form start -->
                     <form role="form" enctype="multipart/form-data" name="add_category" id="add_category" method="POST"
-                        action="{{ url('/admin/new-category') }}">
+                        action="{{ url('/admin/post_category/add') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
@@ -56,7 +56,7 @@
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <label>Category Image</label>
-                                        <input type="file" name="cat_image" id="cat_image" class="form-control">
+                                        <input type="file" name="cat_image" id="cat_image" class="form-control" accept="image/x-png,image/gif,image/jpeg" />
                                     </div>
                                 </div>
                             </div>

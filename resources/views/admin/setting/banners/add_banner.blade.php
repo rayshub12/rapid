@@ -19,7 +19,7 @@
                 <div class="box box-success">
                     <!-- form start -->
                     <form role="form" enctype="multipart/form-data" name="add_banner" id="add_banner" method="POST"
-                        action="{{ url('/admin/new-banners') }}">
+                        action="{{ url('/admin/banner/add') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
@@ -28,7 +28,7 @@
                                         <label>Banner Image</label> <span class="badge label-success badge-sm">image
                                             size: 1920 x 975</span>
                                             <span id="error_img" class="pull-right"></span>
-                                        <input type="file" name="banner_image" id="banner_image" class="form-control">
+                                        <input type="file" name="banner_image" id="banner_image" class="form-control" accept="image/x-png,image/gif,image/jpeg" />
                                     </div>
                                 </div>
                                 <div class="col-xs-12 col-md-12">

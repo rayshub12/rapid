@@ -41,7 +41,7 @@ class PostCategoryController extends Controller
             }
             $category->save();
 
-            return redirect('/admin/categories')->with('flash_message_success', 'Category Added Successfully!');
+            return redirect('/admin/post_category')->with('flash_message_success', 'Category Added Successfully!');
         }
 
         $post_category = PostCategory::where(['parent_cat'=>0])->get();
@@ -65,7 +65,7 @@ class PostCategoryController extends Controller
     // View All Category in Admin Panel
     public function categoryAll()
     {
-        $categories = PostCategory::orderBy('name', 'asc')->get();
+        $categories = PostCategory::orderBy('created_at', 'desc')->get();
         return view('admin.posts.category_all', compact('categories'));
     }
 
@@ -104,8 +104,36 @@ class PostCategoryController extends Controller
     {
         $pcat = PostCategory::where('id', $id)->first();
         $pcat = json_decode(json_encode($pcat));
+        // echo"<pre>";print_r($pcat);die;
 
-        return view('admin.posts.edit_category', compact('pcat'));
+        $post_category = PostCategory::where(['parent_cat' => 0])->get();
+        $post_category_dropdown = '<option value="0" >Main Category</option>';
+        $sel ="";
+    
+        foreach ($post_category as $pCategory) {
+            if($pcat->parent_cat == $pCategory->id){ 
+                $sel = 'selected'; 
+                $post_category_dropdown .= "<option value='" . $pCategory->id . "' selected='". $sel ."'><strong>" . $pCategory->name . "</strong></option>";
+            }
+            $post_category_dropdown .= "<option value='" . $pCategory->id . "' ><strong>" . $pCategory->name . "</strong></option>";
+            $sub_post_category = PostCategory::where(['parent_cat' => $pCategory->id])->get();
+            foreach ($sub_post_category as $sub_pCategory) {
+                if($pcat->parent_cat == $sub_pCategory->id){ 
+                    $sel = 'selected'; 
+                    $post_category_dropdown .= "<option value='" . $sub_pCategory->id . "' selected='". $sel ."'>&nbsp;--&nbsp;" . $sub_pCategory->name . "</option>";
+                }
+                $post_category_dropdown .= "<option value='" . $sub_pCategory->id . "' >&nbsp;--&nbsp;" . $sub_pCategory->name . "</option>";
+                $sub_sub_post_category = PostCategory::where(['parent_cat' => $sub_pCategory->id])->get();
+                foreach ($sub_sub_post_category as $sub_subpCategory) {
+                    if($pcat->parent_cat == $sub_subpCategory->id){ 
+                        $sel = 'selected'; 
+                        $post_category_dropdown .= "<option value='" . $sub_subpCategory->id . "' selected='". $sel ."'>&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;" . $sub_subpCategory->name . "</option>";
+                    }
+                    $post_category_dropdown .= "<option value='" . $sub_subpCategory->id . "' >&nbsp;&nbsp;&nbsp;&nbsp;--&nbsp;" . $sub_subpCategory->name . "</option>";
+                }
+            }
+        }
+        return view('admin.posts.edit_category', compact('pcat','post_category_dropdown'));
     }
 }
 

@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
 
 <?php $__currentLoopData = $pages; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
@@ -16,6 +15,35 @@
 
 <?php echo $p->content; ?>
 
+
+
+<div class="meetteam mt-5 <?php if($p->page_type == 1 && $p->template_type == 1 && $p->career_form == 0): ?> d-block <?php else: ?> d-none <?php endif; ?>">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h3 class="text-center">Meet the Team</h3>
+            </div>
+            <div class="teamsec">
+                <div class="team-carousel owl-carousel owl-theme">
+                    <?php $__currentLoopData = \App\Team::where('status', 1)->orderBy('created_at', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $t): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                    <div class="item">
+                        <div class="teambox">
+                        <?php if(!empty($t->image)): ?>
+                        <img src="<?php echo e(url('images/frontend/team_images/large/'.$t->image)); ?>">
+                        <?php else: ?>
+                        <img src="/images/frontend/images/Personal.png" />
+                        <?php endif; ?>
+                            <p><?php echo e(str_limit($t->description, $limit=150)); ?></p>
+                            <h5><?php echo e($t->name); ?></h5>
+                            <h6><?php echo e($t->designation); ?></h6>
+                        </div>
+                    </div>
+                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 

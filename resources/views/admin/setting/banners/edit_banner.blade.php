@@ -28,8 +28,8 @@
                                     <div class="form-group">
                                         <label>Banner Image</label> <span class="badge label-success badge-sm">image
                                             size: 1920 x 975</span>
-                                        <input type="hidden" name="current_image" multiple id="image" value="{{ $banners->image }}">
-                                        <input type="file" name="banner_image" id="banner_image" class="form-control">
+                                        <input type="hidden" name="current_image" multiple id="image" value="{{ $banners->image }}" >
+                                        <input type="file" name="banner_image" id="banner_image" class="form-control" accept="image/x-png,image/gif,image/jpeg" />
                                     </div>
                                     <p><img width="200" src="{{ url('/images/frontend/banner/large/'.$banners->image) }}" alt=""></p>
                                 </div>

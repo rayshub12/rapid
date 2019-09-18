@@ -19,13 +19,20 @@
                 <div class="box box-success">
                     <!-- form start -->
                     <form role="form" name="add_property_type" id="add_property_type" method="POST"
-                        action="{{ url('/admin/add-property-type') }}">
+                        action="{{ url('/admin/prop_type/add') }}">
                         {{ csrf_field() }}
                         <div class="box-body">
                             <div class="row">
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <label>Property Type</label>
+                                        @if ($errors->any())
+                                        <span id="error_name " class="pull-right">
+                                            @foreach ($errors->all() as $error)
+                                                <label class="text-danger">{{ $error }}<label>
+                                            @endforeach
+                                        </span>
+                                        @endif
                                         <input type="text" name="property_type_name" id="property_type_name" class="form-control"
                                             placeholder="Property Type">
                                     </div>

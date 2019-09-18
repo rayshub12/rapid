@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- CSRF Token -->
     <meta name="csrf-token" content="<?php echo e(csrf_token()); ?>">
-    <title><?php echo e(config('app.name', 'Repid Leads')); ?></title>
+    <title><?php echo e(config('app.name', 'Repid Deals')); ?></title>
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <!-- Bootstrap 3.3.7 -->
@@ -48,7 +48,7 @@
         </div>
         <?php endif; ?>
         <div class="login-logo">
-            <a><b>Rapid</b> Leads</a>
+            <a><b>Rapid</b> Deals</a>
         </div>
         <!-- /.login-logo -->
         <div class="login-box-body">

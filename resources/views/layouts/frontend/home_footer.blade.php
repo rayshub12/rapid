@@ -15,16 +15,16 @@
                             <div class="footer_box">
                                 <h6>Contact</h6>
                                 <div class="contact_box">
-                                    <p>3755 Commercial St SE Salem,
-                                        Corner with Sunny Boulevard, 3755
-                                        Commercial OR 97302
+                                    <p>2108, Bayswater By Omniyat,
+                                        Al Abraj St, Business Bay, Dubai<br>
+                                        <b>PO Box:</b> 26237, Dubai, United Arab Emirates.
                                     </p>
                                 </div>
                                 <div class="contact_box">
-                                    <p>Phone: (305) 555-4446</p>
-                                    <p>Contact No: (305) 555-4446</p>
+                                    <p>Phone: +971 4 2432977</p>
+                                    <p>Contact No: +971 4 2432977</p>
                                     <p>Email Id: info@rapiddeals.com</p>
-                                    <p>Website: https://rapiddeals.com</p>
+                                    <p>Website: <a href="{{ url('/') }}">{{ url('/') }}</a></p>
                                 </div>
                             </div>
                         </div>
@@ -32,9 +32,9 @@
                             <div class="footer_box">
                                 <h6>Off Plan Listings</h6>
                                 <ul class="footer_menu">
-                                    @foreach(\App\PropertyType::where('status', 1)->orderBy('name', 'asc')->get() as $pt)
+                                    @foreach(\App\Property::select('t_name')->orderBy('t_name', 'asc')->distinct()->get() as $pt)
                                     <li>
-                                        <a href="{{ url('/category/'.$pt->url) }}">{{ $pt->name }} ({{ \App\Property::where('property_type', $pt->type_code)->count() }})</a>
+                                        <a href="{{ url('/property/for/category/'.$pt->t_name) }}">{{ $pt->t_name }} ({{ \App\Property::where('t_name', $pt->t_name)->count() }})</a>
                                     </li>
                                     @endforeach
                                 </ul>

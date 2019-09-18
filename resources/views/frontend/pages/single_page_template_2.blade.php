@@ -57,7 +57,7 @@
                     </div>
                   </div>
                   <div class="form-group row">
-                      <label class="col-sm-4 col-form-label">Select Possition *</label>
+                      <label class="col-sm-4 col-form-label">Select Position *</label>
                       <div class="col-sm-8">
                           <select id="inputState" class="form-control" name="course">
                               <option selected="">Option 1</option>
@@ -78,7 +78,7 @@
                       <label class="col-sm-4 col-form-label">Attached Resume *</label>
                       <div class="col-sm-8">
                           <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="customFile" name="resume">
+                              <input type="file" class="custom-file-input" id="customFile" accept=".doc, .docx,.txt,.pdf" name="resume" required>
                               <label class="custom-file-label" for="customFile">Choose file</label>
                             </div>
                       </div>

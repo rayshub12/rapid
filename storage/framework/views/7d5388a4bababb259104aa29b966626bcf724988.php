@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
 
 <style>
@@ -68,7 +67,7 @@
                 <div class="box box-success">
                     <!-- form start -->
                     <form role="form" enctype="multipart/form-data" name="add_post" id="add_post" method="POST"
-                        action="<?php echo e(url('/admin/new-pages')); ?>">
+                        action="<?php echo e(url('/admin/pages/add')); ?>">
                         <?php echo e(csrf_field()); ?>
 
                         <div class="col-xs-12 col-md-9">
@@ -76,7 +75,14 @@
                                 <div class="row">
                                     <div class="col-xs-12 col-md-12">
                                         <div class="form-group">
-                                            <label>Page Title</label>
+                                            <label>Page Title</label> 
+                                            <?php if($errors->any()): ?>
+                                            <span id="error_name " class="pull-right">
+                                                <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <label class="text-danger"><?php echo e($error); ?><label>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </span>
+                                            <?php endif; ?>
                                             <input type="text" name="name" id="post_title" class="form-control"
                                                 placeholder="Page Title">
                                         </div>
@@ -97,15 +103,15 @@
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="col-xs-12 col-md-6">
-                                        <div class="form-group">
-                                            <label>Page Category</label>
-                                            <select name="page_cat" id="post_cat" class="form-control">
+                                    <!--<div class="col-xs-12 col-md-6">-->
+                                    <!--    <div class="form-group">-->
+                                    <!--        <label>Page Category</label>-->
+                                    <!--        <select name="page_cat" id="post_cat" class="form-control">-->
                                                 <!-- <option value="0">Main Category</option> -->
-                                                <?php echo $page_category_dropdown; ?>
-                                            </select>
-                                        </div>
-                                    </div>
+                                    <!--            <?php //echo $page_category_dropdown; ?>-->
+                                    <!--        </select>-->
+                                    <!--    </div>-->
+                                    <!--</div>-->
                                     <div class="col-xs-12 col-md-12">
                                         <div class="form-group">
                                             <label>Description</label>
@@ -167,7 +173,7 @@
                                     <div class="col-xs-12 col-md-12 col-lg-12">
                                         <div class="form-group">
                                             <label for="Post Image">Featured Image</label>
-                                            <input type="file" name="featured_image" id="featured_image">
+                                            <input type="file" name="featured_image" id="featured_image" accept="image/x-png,image/gif,image/jpeg" />
                                         </div>
                                     </div>
                                     <div class="box-footer">

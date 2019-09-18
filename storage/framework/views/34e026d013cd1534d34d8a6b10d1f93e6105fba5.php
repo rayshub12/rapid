@@ -9,7 +9,6 @@
 
 
     <style>
-
     /* custom search */
 
     .search_input {
@@ -107,7 +106,6 @@
         visibility: hidden;
 
     }
-
     </style>
 
 
@@ -119,7 +117,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
 
-
+    <link rel="icon" type="image/png" href="<?php echo e(asset('images/frontend/images/logo_fav.png')); ?>">
     <!-- Bootstrap CSS -->
 
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend/bootstrap.min.css')); ?>">
@@ -135,7 +133,7 @@
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend/owl.carousel.min.css')); ?>">
 
     <!-- <link rel="stylesheet" href="<?php echo e(asset('css/frontend/lightslider.css')); ?>"> -->
-    
+
     <link rel="stylesheet" href="<?php echo e(asset('css/frontend/bootstrap-select.css')); ?>">
 
 
@@ -148,7 +146,6 @@
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/js/bootstrap-notify.js"></script>
     <link rel="stylesheet" type="text/css"
-
         href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-notify/0.2.0/css/bootstrap-notify.css">
 
 
@@ -187,7 +184,7 @@
 
     <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
-    <script src ="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" >
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js">
 
     </script>
 
@@ -209,7 +206,6 @@
 
 
     <script>
-
     <?php if(Session::has('flash_message_success')): ?>
 
     $('.top-right').notify({
@@ -261,13 +257,11 @@
     ?>
 
     <?php endif; ?>
-
     </script>
 
 
 
     <script>
-
     var o2 = $('#work-class2')
 
     o2.owlCarousel({
@@ -363,13 +357,11 @@
         o1.trigger('prev.owl.carousel')
 
     });
-
     </script>
 
 
 
-     <script>
-
+    <script>
     $(document).ready(function() {
 
         $('.search_location').keyup(function() {
@@ -435,8 +427,7 @@
         });
 
     });
-
- </script>
+    </script>
 
 
 

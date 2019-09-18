@@ -5,7 +5,7 @@
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3><a href="{{ url('admin/new-category') }}" class="label label-lg label-success">Add New</a></h3>
+        <h3><a href="{{ url('admin/post_category/add') }}" class="label label-lg label-success">Add New</a></h3>
         <ol class="breadcrumb">
             <li><a href="{{ url('/admin/dashboard') }}"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Categories</li>
@@ -50,17 +50,17 @@
                                         <div id="donate">
 
                                             @if($cat->status == 1)
-                                            <a href="{{ url('/admin/category/'.$cat->id.'/disable') }}" title="Enable"
+                                            <a href="{{ url('/admin/post_category/'.$cat->id.'/disable') }}" title="Enable"
                                                 class="label label-success label-sm">Enable</a>
                                             @else
-                                            <a href="{{ url('/admin/category/'.$cat->id.'/enable') }}" title="Disable"
+                                            <a href="{{ url('/admin/post_category/'.$cat->id.'/enable') }}" title="Disable"
                                                 class="label label-danger label-sm">Disable</a>
                                             @endif
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="{{ url('/admin/category/'.$cat->id.'/edit') }}" class="label label-warning label-lg"><i class="fa fa-edit"></i></a>
-                                        <a href="{{ url('/admin/category/'.$cat->id.'/delete') }}" class="label label-danger label-lg"><i class="fa fa-trash"></i></a>
+                                        <a href="{{ url('/admin/post_category/'.$cat->id.'/edit') }}" class="label label-warning label-lg"><i class="fa fa-edit"></i></a>
+                                        <a href="{{ url('/admin/post_category/'.$cat->id.'/delete') }}" class="label label-danger label-lg"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 @endforeach

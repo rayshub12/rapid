@@ -15,16 +15,16 @@
                             <div class="footer_box">
                                 <h6>Contact</h6>
                                 <div class="contact_box">
-                                    <p>3755 Commercial St SE Salem,
-                                        Corner with Sunny Boulevard, 3755
-                                        Commercial OR 97302
+                                    <p>2108, Bayswater By Omniyat,
+                                        Al Abraj St, Business Bay, Dubai<br>
+                                        <b>PO Box:</b> 26237, Dubai, United Arab Emirates.
                                     </p>
                                 </div>
                                 <div class="contact_box">
-                                    <p>Phone: (305) 555-4446</p>
-                                    <p>Contact No: (305) 555-4446</p>
+                                    <p>Phone: +971 4 2432977</p>
+                                    <p>Contact No: +971 4 2432977</p>
                                     <p>Email Id: info@rapiddeals.com</p>
-                                    <p>Website: https://rapiddeals.com</p>
+                                    <p>Website: <a href="<?php echo e(url('/')); ?>"><?php echo e(url('/')); ?></a></p>
                                 </div>
                             </div>
                         </div>
@@ -32,9 +32,9 @@
                             <div class="footer_box">
                                 <h6>Off Plan Listings</h6>
                                 <ul class="footer_menu">
-                                    <?php $__currentLoopData = \App\PropertyType::where('status', 1)->orderBy('name', 'asc')->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <?php $__currentLoopData = \App\Property::select('t_name')->orderBy('t_name', 'asc')->distinct()->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pt): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <li>
-                                        <a href="<?php echo e(url('/category/'.$pt->url)); ?>"><?php echo e($pt->name); ?> (<?php echo e(\App\Property::where('property_type', $pt->type_code)->count()); ?>)</a>
+                                        <a href="<?php echo e(url('/property/for/category/'.$pt->t_name)); ?>"><?php echo e($pt->t_name); ?> (<?php echo e(\App\Property::where('t_name', $pt->t_name)->count()); ?>)</a>
                                     </li>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                                 </ul>

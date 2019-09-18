@@ -83,7 +83,7 @@ function generate_string($input, $strength = 16) {
                 <div class="box box-purple">
                     <!-- /.box-header -->
                     <div class="box-body">
-                        <form enctype="multipart/form-data" method="post" action="{{ url('/admin/property/'.$property->id.'/edit') }}"
+                        <form enctype="multipart/form-data" method="post" action="{{ url('/admin/property/'.$property->reference.'/edit') }}"
                             name="edit_property" id="edit_property" novalidate="novalidate">
                             {{ csrf_field() }}
                             <div class="col-sm-12 col-md-9">
@@ -97,18 +97,18 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Property Name">Property Name</label>
                                                 <input type="text" name="property_name" id="property_name"
-                                                    class="form-control" value="{{ $property->name }}">
+                                                    class="form-control" value="{{ $property->pro_title }}">
                                             </div>
                                         </div>
-                                        <div class="col-xs-12 col-md-6">
+                                        <!-- <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="Url">Url</label>
                                                 <div class="input-group">
                                                     <span class="input-group-addon">Url</span>
-                                                    <input type="text" name="slug" id="slug" class="form-control" value="{{ $property->url }}">
+                                                    <input type="text" name="slug" id="slug" class="form-control">
                                                 </div>
                                             </div>
-                                        </div>
+                                        </div> -->
                                         <div class="col-xs-12 col-md-6">
                                             <div class="form-group">
                                                 <label for="Property For">Property For</label>
@@ -116,9 +116,19 @@ function generate_string($input, $strength = 16) {
                                                     class="form-control select2" style="width: 100%;" tabindex="-1"
                                                     aria-hidden="true">
                                                     <option value="" selected>Properties</option>
-                                                    <option value="1" @if($property->property_for == 1) selected @endif>Buy</option>
-                                                    <option value="2" @if($property->property_for == 2) selected @endif>Rent</option>
-                                                    <option value="3" @if($property->property_for == 3) selected @endif>Off Plan</option>
+                                                    <option value="sale" @if($property->offering_type == 'sale') selected @endif>Buy</option>
+                                                    <option value="rent" @if($property->offering_type == 'rent') selected @endif>Rent</option>
+                                                </select>
+                                            </div>
+                                        </div>
+                                        <div class="col-xs-12 col-md-6">
+                                            <div class="form-group">
+                                                <label for="Project Status">Project Status</label>
+                                                <select name="project_status" id="project_status"
+                                                    class="form-control select2" style="width: 100%;" tabindex="-1"
+                                                    aria-hidden="true">
+                                                    <option value="" selected>Select Project Status</option>
+                                                    <option value="off_plan" @if($property->project_status == 'off_plan') selected @endif>Off Plan</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -129,20 +139,10 @@ function generate_string($input, $strength = 16) {
                                                     style="width: 100%;" tabindex="-1" aria-hidden="true">
                                                     <option value="" selected>Select Property Type</option>
                                                     @foreach($propertytype as $ptype)
-                                                    <option value="{{ $ptype->type_code }}" @if($property->property_type == $ptype->type_code) selected @endif>
+                                                    <option value="{{ $ptype->name }}" @if($property->t_name == $ptype->name) selected @endif>
                                                         {{ $ptype->name }}</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-md-4 hidden">
-                                            <div class="form-group">
-                                                <label name="Property Code">Property Code</label>
-                                                <div class="input-group">
-                                                    <input name="property_code" id="property_code" type="text"
-                                                        value="{{ $property->property_code }}"
-                                                        class="form-control">
-                                                </div>
                                             </div>
                                         </div>
 
@@ -152,7 +152,7 @@ function generate_string($input, $strength = 16) {
                                                 <div class="input-group">
                                                     <span class="input-group-addon"><strong>AED</strong></span>
                                                     <input name="property_price" id="property_price" type="text"
-                                                        class="form-control" value="{{ $property->property_price }}">
+                                                        class="form-control" value="{{ $property->price_value }}">
                                                 </div>
                                             </div>
                                         </div>
@@ -166,28 +166,7 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Description">Description</label>
                                                 <textarea name="description" id="description"
-                                                    class="form-control my-editor">{{ $property->description }}</textarea>
-                                            </div>
-                                        </div>
-                                        <div class="col-xs-12 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="feature" id="feature"
-                                                        class="flat-green" @if($property->featured == 1) checked @endif value="1"> Featured <small
-                                                        class="text-purple pl-1">( If you check this set Featured
-                                                        Property )</small>
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-12 col-md-6">
-                                            <div class="form-group">
-                                                <label>
-                                                    <input type="checkbox" name="commercial" id="commercial"
-                                                        class="flat-green" @if($property->commercial == 1) checked @endif value="1"> Commercial <small
-                                                        class="text-purple pl-1">( If you check this set Commercial
-                                                        Property )</small>
-                                                </label>
+                                                    class="form-control my-editor">{{ $property->pro_description }}</textarea>
                                             </div>
                                         </div>
 
@@ -197,21 +176,19 @@ function generate_string($input, $strength = 16) {
                                                 <div class="input-group">
                                                     <span class="input-group-addon">sq/ft</span>
                                                     <input name="property_area" id="property_area" type="text"
-                                                        class="form-control" value="{{ $property->property_area }}">
+                                                        class="form-control" value="{{ $property->size }}">
                                                 </div>
                                             </div>
                                         </div>
 
                                         <div class="col-xs-12 col-md-4">
                                             <div class="form-group">
-                                                <label for="Property Facing">Property Facing</label>
-                                                <select name="property_facing" id="property_facing"
+                                                <label for="Property Facing">Property Category</label>
+                                                <select name="property_category" id="property_category"
                                                     class="form-control">
-                                                    <option value="" selected>Select Property Facing</option>
-                                                    <option value="East" @if($property->property_facing == 'East') selected @endif>East Facing</option>
-                                                    <option value="West" @if($property->property_facing == 'West') selected @endif>West Facing</option>
-                                                    <option value="North" @if($property->property_facing == 'North') selected @endif>North Facing</option>
-                                                    <option value="South" @if($property->property_facing == 'South') selected @endif>South Facing</option>
+                                                    <option value="" selected>Select Property Category</option>
+                                                    <option value="residential" @if($property->t_category == 'residential') selected @endif>Residential</option>
+                                                    <option value="commercial" @if($property->t_category == 'commercial') selected @endif>Commercial</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -221,45 +198,35 @@ function generate_string($input, $strength = 16) {
                                                 <label for="Furnish Type">Furnish Type</label>
                                                 <select name="furnish_type" id="furnish_type" class="form-control">
                                                     <option value="" selected>Select Furnish Type</option>
-                                                    <option value="F" @if($property->furnish_type == 'F') selected @endif>Fully Furnished</option>
-                                                    <option value="S" @if($property->furnish_type == 'S') selected @endif>Semi Furnished</option>
-                                                    <option value="U" @if($property->furnish_type == 'U') selected @endif>Unfurnished</option>
+                                                    <option value="furnished" @if($property->furnished == 'furnished') selected @endif>Fully Furnished</option>
+                                                    <option value="semi-furnished" @if($property->furnished == 'semi-furnished') selected @endif>Semi Furnished</option>
+                                                    <option value="unfurnished" @if($property->furnished == 'unfurnished') selected @endif>Unfurnished</option>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="col-xs-12 col-md-4">
                                             <div class="form-group">
-                                                <label for="Transection Type">Transaction Type</label>
-                                                <select name="transection_type" id="transection_type"
+                                                <label for="Transection Type">Occupancy</label>
+                                                <select name="occupancy" id="transection_type"
                                                     class="form-control">
-                                                    <option value="" selected>Select Transaction Type</option>
-                                                    <option value="New Booking" @if($property->transection_type == 'New Booking') selected @endif>New Booking</option>
-                                                    <option value="Resale" @if($property->transection_type == 'Resale') selected @endif>Resale</option>
+                                                    <option value="" selected>Select Occupancy Type</option>
+                                                    <option value="Vacant" @if($property->occupancy == 'Vacant') selected @endif>Vacant</option>
+                                                    <option value="Booked" @if($property->occupancy == 'Booked') selected @endif>Booked</option>
                                                 </select>
                                             </div>
                                         </div>
 
                                         <div class="col-xs-12 col-md-4">
                                             <div class="form-group">
-                                                <label>Construction Status</label>
-                                                <select name="construction_status" id="construction_status"
+                                                <label>Availability</label>
+                                                <select name="availability" id="construction_status"
                                                     class="form-control">
-                                                    <option value="" selected>Select Construction Status</option>
-                                                    <option value="UC" @if($property->construction_status == 'UC') selected @endif>Under Construction</option>
-                                                    <option value="RM" @if($property->construction_status == 'RM') selected @endif>Ready to Move</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div id="Rooms" class="col-xs-6 col-sm-6 col-md-4">
-                                            <div class="form-group">
-                                                <label for="Apple Trees">Rooms</label>
-                                                <select name="rooms" id="rooms" class="form-control">
-                                                    <option value="" selected>Select Rooms</option>
-                                                    <?php for($i=1; $i<1000; $i++) { ?>
-                                                    <option @if($property->rooms == $i) selected @endif value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                                    <?php } ?>
+                                                    <option value="" selected>Select Availability</option>
+                                                    <option value="available" @if($property->status == 'available') selected @endif>Available</option>
+                                                    <option value="under_offer" @if($property->status == 'under_offer') selected @endif>Under Offer</option>
+                                                    <option value="reserved" @if($property->status == 'reserved') selected @endif>Reserved</option>
+                                                    <option value="rented" @if($property->status == 'rented') selected @endif>Rented</option>
                                                 </select>
                                             </div>
                                         </div>
@@ -270,7 +237,7 @@ function generate_string($input, $strength = 16) {
                                                 <select name="bedrooms" id="bedrooms" class="form-control">
                                                     <option value="" selected>Select Bedrooms</option>
                                                     <?php for($i=1; $i<250; $i++) { ?>
-                                                    <option @if($property->bedrooms == $i) selected @endif value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                    <option value="<?php echo $i; ?>" @if($property->bedrooms ==  $i) selected @endif><?php echo $i; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -282,7 +249,7 @@ function generate_string($input, $strength = 16) {
                                                 <select name="bathrooms" id="bathrooms" class="form-control">
                                                     <option value="" selected>Select Bathrooms</option>
                                                     <?php for($i=1; $i<150; $i++) { ?>
-                                                    <option @if($property->bathrooms == $i) selected @endif value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                    <option value="<?php echo $i; ?>" @if($property->bathrooms ==  $i) selected @endif><?php echo $i; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
@@ -294,43 +261,42 @@ function generate_string($input, $strength = 16) {
                                                 <select name="parking" id="parking" class="form-control">
                                                     <option value="" selected>Select Parking</option>
                                                     <?php for($i=1; $i<10; $i++) { ?>
-                                                    <option @if($property->parking == $i) selected @endif value="<?php echo $i; ?>"><?php echo $i; ?></option>
+                                                    <option value="<?php echo $i; ?>" @if($property->parking ==  $i) selected @endif><?php echo $i; ?></option>
                                                     <?php } ?>
                                                 </select>
                                             </div>
                                         </div>
 
-                                        <div id="PWashroom" class="col-xs-6 col-sm-6 col-md-4">
+                                        <div id="PDeveloper" class="col-xs-6 col-sm-6 col-md-4">
                                             <div class="form-group">
-                                                <label for="Personal Washroom">Personal Washroom</label>
-                                                <select name="p_washroom" id="p_washroom" class="form-control">
-                                                    <option value="" selected>Select</option>
-                                                    <option value="1" @if($property->p_washrooms == 1) selected @endif>Yes</option>
-                                                    <option value="0" @if($property->p_washrooms == 0) selected @endif>No</option>
+                                                <label for="Property Developer">Property Developer</label>
+                                                <input type="text" class="form-control" id="property_developer" name="property_developer" value="{{ $property->developer }}">
+                                            </div>
+                                        </div>
+
+                                        <div id="PropertyTenure" class="col-xs-6 col-sm-6 col-md-4">
+                                            <div class="form-group">
+                                                <label for="Tenure of Property">Tenure of Property</label>
+                                                <select name="property_tenure" id="property_tenure" class="form-control">
+                                                    <option value="" selected>Select Property Tenure</option>
+                                                    <option value="freehold" @if($property->freehold ==  'freehold') selected @endif>Freehold</option>
+                                                    <option value="non-freehold" @if($property->freehold ==  'non-freehold') selected @endif>Non-Freehold</option>
+                                                    <option value="leasehold" @if($property->freehold ==  'leasehold') selected @endif>Leasehold</option>
                                                 </select>
                                             </div>
                                         </div>
 
-                                        <div id="Cafeteria" class="col-xs-6 col-sm-6 col-md-4">
+                                        <div id="FloorNo" class="col-xs-6 col-sm-6 col-md-4">
                                             <div class="form-group">
-                                                <label for="Cafeteria">Pantry/Cafeteria</label>
-                                                <select name="cafeteria" id="cafeteria" class="form-control">
-                                                    <option value="" selected>Select</option>
-                                                    <option value="1" @if($property->cafeteria == 1) selected @endif>Yes</option>
-                                                    <option value="0" @if($property->cafeteria == 0) selected @endif>No</option>
-                                                </select>
+                                                <label for="Floor Number">Floor Number</label>
+                                                <input type="text" class="form-control" id="floor_number" name="floor_number" value="{{ $property->floor_number }}">
                                             </div>
                                         </div>
 
-                                        <div class="col-xs-6 col-sm-6 col-md-4">
+                                        <div class="col-xs-12 col-sm-6 col-md-4">
                                             <div class="form-group">
-                                                <label for="Property Age">Property Age</label>
-                                                <select name="property_age" id="property_age" class="form-control">
-                                                    <option value="" selected>Select</option>
-                                                    <?php for($i=1; $i<100; $i++) { ?>
-                                                    <option @if($property->property_age == $i) selected @endif value="<?php echo $i; ?>"><?php echo $i; ?></option>
-                                                    <?php } ?>
-                                                </select>
+                                                <label for="RERA Listing Number">RERA Listing Number</label>
+                                                <input type="text" name="rera_number" id="rera_number" class="form-control" value="{{ $property->licenses_number }}">
                                             </div>
                                         </div>
                                     </div>
@@ -341,19 +307,15 @@ function generate_string($input, $strength = 16) {
                                         </div>
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <label for="Property Address">Property Address 1</label>
-                                                <textarea name="property_address1" id="property_address1"
-                                                    class="form-control" rows="3"
-                                                    placeholder="Address Line 1">{{ $property->addressline1 }}</textarea>
+                                                <label for="Street Number">Street Number</label>
+                                                <input type="text" class="form-control" name="street_number" id="street_number" value="{{ $property->street_number }}">
                                             </div>
                                         </div>
 
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <label for="Property Address">Property Address 2</label>
-                                                <textarea name="property_address2" id="property_address2"
-                                                    class="form-control" rows="3"
-                                                    placeholder="Address Line 2">{{ $property->addressline2 }}</textarea>
+                                                <label for="Street Name">Street Name</label>
+                                                <input type="text" name="street_name" id="street_name" class="form-control" value="{{ $property->street_name }}">
                                             </div>
                                         </div>
 
@@ -361,60 +323,21 @@ function generate_string($input, $strength = 16) {
                                             <div class="form-group">
                                                 <label for="Unit no.">Unit no.</label>
                                                 <input name="unit_no" id="unit_no" type="text"
-                                                    class="form-control block-level" value="{{ $property->unitno }}">
+                                                    class="form-control block-level" value="{{ $property->unit_number }}">
                                             </div>
                                         </div>
 
                                         <div class="col-xs-6 col-sm-6 col-md-6">
                                             <div class="form-group">
-                                                <label for="Locality">Locality</label>
-                                                <input type="text" name="locality" id="locality" class="form-control" value="{{ $property->locality }}">
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label for="Country">Country</label>
-                                                <select name="country" id="country" class="form-control"
-                                                    style="width: 100%;" tabindex="-1" aria-hidden="true">
-                                                    @foreach($countrylist as $c)
-                                                    <option value="{{ $c->iso2 }}">{{ $c->name }}</option>
+                                                <label for="State">Property Location</label>
+                                                <select class="form-control select2 select2-hidden-accessible"
+                                                    name="location_id" id="search_text" style="width: 100%;" tabindex="-1"
+                                                    aria-hidden="true" data-placeholder="Tower, Community...">
+                                                    <option value="" selected>Select Location</option>
+                                                    @foreach($location as $locate)
+                                                    <option value="{{ $locate->l_id }}" @if($property->l_id ==  $locate->l_id) selected @endif>@if(!empty($locate->tower)){{ $locate->tower }}, {{ $locate->sub_community }}, {{ $locate->community }}, {{ $locate->city }}@elseif(!empty($locate->sub_community)) {{ $locate->sub_community }}, {{ $locate->community }}, {{ $locate->city }} @elseif(!empty($locate->community)) {{ $locate->community }}, {{ $locate->city }} @endif</option>
                                                     @endforeach
                                                 </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label for="State">State</label>
-                                                <select class="form-control select2 select2-hidden-accessible"
-                                                    name="state" id="state_edit" style="width: 100%;" tabindex="-1"
-                                                    aria-hidden="true">
-                                                    <option value="" selected>Select State</option>
-                                                    @foreach($states as $s)
-                                                    <option value="{{ $s->id }}" @if($s->id == $property->state) selected @endif>{{ $s->name }}</option>
-                                                    @endforeach
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label for="City">City</label>
-                                                <select class="form-control select2 select2-hidden-accessible"
-                                                    name="city" id="city_edit" style="width: 100%;" tabindex="-1"
-                                                    aria-hidden="true">
-                                                    <!-- <option value="" selected>Select City</option> -->
-                                                    <?php echo $city_dropdown; ?>
-                                                </select>
-                                            </div>
-                                        </div>
-                                        <input type="hidden" id="p_id" value="{{ $property->id }}">
-
-                                        <div class="col-xs-6 col-sm-6 col-md-6">
-                                            <div class="form-group">
-                                                <label for="Zipcode/Postal Code">Zipcode/Postal Code</label>
-                                                <input name="zipcode" id="zipcode" type="text" class="form-control" value="{{ $property->postalcode }}">
                                             </div>
                                         </div>
                                     </div>
@@ -445,7 +368,7 @@ function generate_string($input, $strength = 16) {
                                         @foreach(\App\FloorImage::where('property_id', $property->id)->get() as $propImages)
                                         @if(!empty($propImages->image_name))
                                         <div class="abcd">
-                                            <input type="hidden" name="current_image1[]" multiple id="image" value="{{ $propImages->image_name }}">           
+                                            <input type="hidden" name="current_image1[]" multiple id="image" value="{{ $propImages->image_name }}" accept="image/x-png,image/gif,image/jpeg" />           
                                             <img src="{{ url('/images/frontend/property_images/large/'.$propImages->image_name)}}"> <a href="{{ url('/admin/floor-plan-image/'.$propImages->id.'/delete') }}"><i id="close" alt="delete" class="fa fa-close"></i></a>
                                         </div>
                                         @endif
@@ -468,9 +391,9 @@ function generate_string($input, $strength = 16) {
                                         @foreach($amenities as $a)
                                         <div class="col-xs-6 col-md-6">
                                             <div class="form-group">
-                                                <label>
+                                            <label>
                                                     <input type="checkbox" name="amenity[]" id="<?php echo preg_replace('/[^a-zA-Z0-9-]/','' ,strtolower($a->name)); ?>"
-                                                        class="flat-green" value="{{ $a->amenity_code }}" @foreach(explode(',', $property->amenities) as $am) @if($a->amenity_code == $am) checked @endif @endforeach> {{ $a->name }}
+                                                        class="flat-green" value="{{ $a->name }}" @foreach(explode(',', $property->amenities_name) as $am) @if($a->name == $am) checked @endif @endforeach> {{ $a->name }}
                                                 </label>
                                             </div>
                                         </div>
@@ -478,7 +401,7 @@ function generate_string($input, $strength = 16) {
 
                                         <div class="box-footer">
                                             <input type="submit" class="btn btn-success btn-md btn-block"
-                                                value="Update Property">
+                                                value="Submit Property">
                                         </div>
                                     </div>
                                 </div>

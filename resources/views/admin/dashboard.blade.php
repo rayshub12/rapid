@@ -22,7 +22,6 @@
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-
                     <div class="info-box-content">
                         <span class="info-box-text">Properties</span>
                         <span class="label label-success">Total &nbsp;{{ \App\Property::get()->count() }}</span>
@@ -36,35 +35,30 @@
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Recently Added Property</h3>
-
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                    class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
-                                    class="fa fa-times"></i></button>
-                        </div>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <ul class="products-list product-list-in-box">
-                            @foreach(\App\Property::orderBy('created_at', 'desc')->take(5)->get() as $p)
+                            @foreach($properties as $p)
                             <li class="item">
                                 <div class="product-img">
-                                    @foreach(\App\PropertyImage::where('property_id', $p->id)->take(1)->get() as $pim)
-                                        <img src="{{ url('/images/frontend/property_images/large/'.$pim->image_name) }}" alt="Product Image">
+                                @if(!empty($p->images_mlink))
+                                    @foreach(explode(',',$p->images_mlink) as $key => $image_m)
+                                        @if($key == 0)
+                                        <img class="img-responsive" src="{{ $image_m }}">
+                                        @endif
                                     @endforeach
+                                @else
+                                <img src="{{ url('images/frontend/property_images/large/default.png') }}">
+                                @endif
                                 </div>
                                 <div class="product-info">
-                                    <a href="{{ url('/properties/'.$p->id) }}" target="_blank" class="product-title">{{ str_limit($p->name, $limit=150) }}
-                                        <span class="label label-success pull-right">@if($p->property_for == 2)
-                                            AED {{ $p->property_price }} <span>/Year</span>
+                                    <a href="{{ url('/properties/'.$p->reference) }}" target="_blank" class="product-title">{{ str_limit($p->pro_title, $limit=150) }}
+                                        <span class="label label-success pull-right">@if($p->offering_type == 'rent')
+                                            AED {{ $p->price_value }} <span>/Year</span>
                                             @else
-                                            AED {{ $p->property_price }}
+                                            AED {{ $p->price_value }}
                                             @endif</span></a>
-                                    <span class="product-description">
-                                        Samsung 32" 1080p 60Hz LED Smart HDTV.
-                                    </span>
                                 </div>
                             </li>
                             @endforeach
@@ -72,7 +66,7 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer text-center">
-                        <a href="{{ url('/admin/properties') }}" class="uppercase">View All Properties</a>
+                        <a href="{{ url('/admin/property') }}" class="uppercase">View All Properties</a>
                     </div>
                     <!-- /.box-footer -->
                 </div>

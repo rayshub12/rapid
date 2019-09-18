@@ -4,10 +4,11 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>{{ config('app.name', 'IPC Property Portal') }}</title>
+    <title> Admin | {{ config('app.name', 'Rapid Deals Admin') }}</title>
 
     <!-- Favicon -->
-    <link rel="icon" href="{{ asset(config('app.favicon')) }}" type="image/x-icon" />
+    <link rel="icon" type="image/png" href="{{ asset('images/frontend/images/logo_fav.png') }}">
+    <!--<link rel="icon" href="{{ asset(config('app.favicon')) }}" type="image/x-icon" />-->
     <!-- Tell the browser to be responsive to screen width -->
     <meta content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no" name="viewport">
     <link rel="stylesheet" href="{{ asset('bower_components/bootstrap/dist/css/bootstrap.min.css') }}">
@@ -175,6 +176,43 @@ desired effect
         });
     });
     </script>
+
+<script>
+    //Homepage search js
+// $(document).ready(function(){
+//   $('.search_location').keyup(function(){ 
+//     var query = $(this).val();
+//     if(query != ''){
+//       var _token = $('input[name="_token"]').val();
+      
+//       $.ajax({
+//         url:"/admin/add-property/get-location",
+//         method:"POST",
+//         data:{query:query, _token:_token},
+//         success:function(data){
+//           $('#searchlist').fadeIn(); 
+//           $('#searchlist').html(data);
+//         }
+//       });
+//     }
+//   });
+
+//   $(document).on('click', '#type_search', function(){ 
+//     $('#search_name').val($(this).text()); 
+//     $('#searchlist').fadeOut(); 
+//   }); 
+
+//   $(document).on('click', function(){ 
+//     $('#searchlist').fadeOut(); 
+//   });
+
+//   $(document).keyup(function(e) {
+//     if (e.key === "Escape") { 
+//       $('#searchlist').fadeOut(); 
+//     }
+//   });
+// });
+</script>
 
     <script>
     @if(Session::has('flash_message_success'))

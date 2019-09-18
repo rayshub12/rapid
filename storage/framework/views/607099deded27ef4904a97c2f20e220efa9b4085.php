@@ -1,4 +1,3 @@
-
 <?php $__env->startSection('content'); ?>
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
@@ -22,7 +21,6 @@
             <div class="col-md-3 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-aqua"><i class="ion ion-ios-gear-outline"></i></span>
-
                     <div class="info-box-content">
                         <span class="info-box-text">Properties</span>
                         <span class="label label-success">Total &nbsp;<?php echo e(\App\Property::get()->count()); ?></span>
@@ -36,37 +34,32 @@
                 <div class="box box-primary">
                     <div class="box-header with-border">
                         <h3 class="box-title">Recently Added Property</h3>
-
-                        <div class="box-tools pull-right">
-                            <button type="button" class="btn btn-box-tool" data-widget="collapse"><i
-                                    class="fa fa-minus"></i>
-                            </button>
-                            <button type="button" class="btn btn-box-tool" data-widget="remove"><i
-                                    class="fa fa-times"></i></button>
-                        </div>
                     </div>
                     <!-- /.box-header -->
                     <div class="box-body">
                         <ul class="products-list product-list-in-box">
-                            <?php $__currentLoopData = \App\Property::orderBy('created_at', 'desc')->take(5)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = $properties; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $p): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <li class="item">
                                 <div class="product-img">
-                                    <?php $__currentLoopData = \App\PropertyImage::where('property_id', $p->id)->take(1)->get(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $pim): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                        <img src="<?php echo e(url('/images/frontend/property_images/large/'.$pim->image_name)); ?>" alt="Product Image">
+                                <?php if(!empty($p->images_mlink)): ?>
+                                    <?php $__currentLoopData = explode(',',$p->images_mlink); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $key => $image_m): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <?php if($key == 0): ?>
+                                        <img class="img-responsive" src="<?php echo e($image_m); ?>">
+                                        <?php endif; ?>
                                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php else: ?>
+                                <img src="<?php echo e(url('images/frontend/property_images/large/default.png')); ?>">
+                                <?php endif; ?>
                                 </div>
                                 <div class="product-info">
-                                    <a href="<?php echo e(url('/properties/'.$p->id)); ?>" target="_blank" class="product-title"><?php echo e(str_limit($p->name, $limit=150)); ?>
+                                    <a href="<?php echo e(url('/properties/'.$p->reference)); ?>" target="_blank" class="product-title"><?php echo e(str_limit($p->pro_title, $limit=150)); ?>
 
-                                        <span class="label label-success pull-right"><?php if($p->property_for == 2): ?>
-                                            AED <?php echo e($p->property_price); ?> <span>/Year</span>
+                                        <span class="label label-success pull-right"><?php if($p->offering_type == 'rent'): ?>
+                                            AED <?php echo e($p->price_value); ?> <span>/Year</span>
                                             <?php else: ?>
-                                            AED <?php echo e($p->property_price); ?>
+                                            AED <?php echo e($p->price_value); ?>
 
                                             <?php endif; ?></span></a>
-                                    <span class="product-description">
-                                        Samsung 32" 1080p 60Hz LED Smart HDTV.
-                                    </span>
                                 </div>
                             </li>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -74,7 +67,7 @@
                     </div>
                     <!-- /.box-body -->
                     <div class="box-footer text-center">
-                        <a href="<?php echo e(url('/admin/properties')); ?>" class="uppercase">View All Properties</a>
+                        <a href="<?php echo e(url('/admin/property')); ?>" class="uppercase">View All Properties</a>
                     </div>
                     <!-- /.box-footer -->
                 </div>

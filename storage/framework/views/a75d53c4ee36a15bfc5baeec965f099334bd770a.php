@@ -1,0 +1,1 @@
+<h1>Edit Category <?php echo e($pcat->id); ?></h1><?php /**PATH /home/b81baw0coev3/public_html/rapidleads.buzzsummo.net/resources/views/admin/pages/edit_category.blade.php ENDPATH**/ ?>

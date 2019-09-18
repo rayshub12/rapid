@@ -1,11 +1,10 @@
-
 <?php $__env->startSection('content'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
-        <h3><a href="<?php echo e(url('admin/new-category')); ?>" class="label label-lg label-success">Add New</a></h3>
+        <h3><a href="<?php echo e(url('admin/post_category/add')); ?>" class="label label-lg label-success">Add New</a></h3>
         <ol class="breadcrumb">
             <li><a href="<?php echo e(url('/admin/dashboard')); ?>"><i class="fa fa-dashboard"></i> Dashboard</a></li>
             <li class="active">Categories</li>
@@ -50,17 +49,17 @@
                                         <div id="donate">
 
                                             <?php if($cat->status == 1): ?>
-                                            <a href="<?php echo e(url('/admin/category/'.$cat->id.'/disable')); ?>" title="Enable"
+                                            <a href="<?php echo e(url('/admin/post_category/'.$cat->id.'/disable')); ?>" title="Enable"
                                                 class="label label-success label-sm">Enable</a>
                                             <?php else: ?>
-                                            <a href="<?php echo e(url('/admin/category/'.$cat->id.'/enable')); ?>" title="Disable"
+                                            <a href="<?php echo e(url('/admin/post_category/'.$cat->id.'/enable')); ?>" title="Disable"
                                                 class="label label-danger label-sm">Disable</a>
                                             <?php endif; ?>
                                         </div>
                                     </td>
                                     <td>
-                                        <a href="<?php echo e(url('/admin/category/'.$cat->id.'/edit')); ?>" class="label label-warning label-lg"><i class="fa fa-edit"></i></a>
-                                        <a href="<?php echo e(url('/admin/category/'.$cat->id.'/delete')); ?>" class="label label-danger label-lg"><i class="fa fa-trash"></i></a>
+                                        <a href="<?php echo e(url('/admin/post_category/'.$cat->id.'/edit')); ?>" class="label label-warning label-lg"><i class="fa fa-edit"></i></a>
+                                        <a href="<?php echo e(url('/admin/post_category/'.$cat->id.'/delete')); ?>" class="label label-danger label-lg"><i class="fa fa-trash"></i></a>
                                     </td>
                                 </tr>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>

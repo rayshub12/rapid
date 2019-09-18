@@ -1,9 +1,10 @@
-
 <?php $__env->startSection('content'); ?>
 
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper">
     <!-- Content Header (Page header) -->
+    
+    
     <section class="content-header">
         <h1>Add New Member</h1>
         <ol class="breadcrumb">
@@ -19,7 +20,7 @@
                 <div class="box box-success">
                     <!-- form start -->
                     <form role="form" enctype="multipart/form-data" name="add_member" id="add_member"
-                        method="POST" action="<?php echo e(url('/admin/new-member')); ?>">
+                        method="POST" action="<?php echo e(url('/admin/team_member/add')); ?>">
                         <?php echo e(csrf_field()); ?>
 
                         <div class="box-body">
@@ -27,7 +28,13 @@
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <label>Name</label>
-                                        <span id="error_name" class="pull-right"></span>
+                                        <?php if($errors->any()): ?>
+                                        <span id="error_name " class="pull-right">
+                                            <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                <label class="text-danger"><?php echo e($error); ?><label>
+                                            <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        </span>
+                                        <?php endif; ?>
                                         <input type="text" name="name" id="TeamName" class="form-control"
                                             placeholder="Name">
                                     </div>
@@ -53,7 +60,7 @@
                                 <div class="col-xs-12 col-md-12">
                                     <div class="form-group">
                                         <label>Team Member Image</label>
-                                        <input type="file" name="member_image" id="member_image" class="form-control">
+                                        <input type="file" name="member_image" id="member_image" class="form-control" accept="image/x-png,image/gif,image/jpeg" />
                                     </div>
                                 </div>
                             </div>
